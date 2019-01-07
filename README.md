@@ -1,6 +1,8 @@
 # MKS21X-FinalProject
 Instructions:
 
+Map: https://docs.google.com/drawings/d/18IcRpKoM4aBrPLCVbqySDgCrwhyq8Nm6cNnM3kSQbWQ/edit?usp=sharing
+
 Change Log:
 
 1/3/19: Made the repository
