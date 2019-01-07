@@ -9,4 +9,4 @@ Change Log:
 
 1/4/19: Worked on map, figured out nuances of github
 
-1/7/2019: Started Player.java and played around with terminal commands
+1/7/2019: Started Player.java and played around with terminal commands, nearly completed map, committed Room.java
