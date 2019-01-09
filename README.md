@@ -12,3 +12,5 @@ Change Log:
 1/7/19: Started Player.java and played around with terminal commands, nearly completed map, committed Room.java
 
 1/8/19: Set up basics for Room.java, set up a new branch, touched up on map, worked on movement and crouch, fixed compile on Windows
+
+1/9/19: Fixed issues with the README, Finished map/concept
