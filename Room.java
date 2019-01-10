@@ -5,9 +5,16 @@ import com.googlecode.lanterna.terminal.Terminal.Color;
 import com.googlecode.lanterna.terminal.TerminalSize;
 import com.googlecode.lanterna.LanternaException;
 import com.googlecode.lanterna.input.CharacterPattern;
+import java.util.ArrayList;
+
 public class Room {
   public int roomNumber;
-  private int[][][] design;
+  private ArrayList design;
   public int[][][] entrances;
-  public int resetPosition;
+
+  public Room(int num, ArrayList des, int[][][] entrs) {
+    roomNumber = num;
+    design = des;
+    entrances = entrs;
+  }
 }
