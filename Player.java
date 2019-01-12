@@ -62,13 +62,13 @@ public class Player{
       y--;
     }
 
-    if (key.getKind() == Key.Kind.ArrowDown) {
-      terminal.moveCursor(x,y);
-      terminal.putCharacter(' ');
-      terminal.moveCursor(x,y+1);
-      terminal.putCharacter(' ');
-      y++;
-    }
+  //  if (key.getKind() == Key.Kind.ArrowDown) {
+  //    terminal.moveCursor(x,y);
+  //    terminal.putCharacter(' ');
+  //    terminal.moveCursor(x,y+1);
+  //    terminal.putCharacter(' ');
+  //    y++;
+  //  }
     terminal.moveCursor(x,y);
     terminal.putCharacter('\u00a4');
     terminal.moveCursor(x,y+1);
