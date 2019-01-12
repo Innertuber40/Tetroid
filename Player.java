@@ -76,9 +76,9 @@ public class Player{
   }
 }
 
-  //private void crouch(){
+//  public void crouch(){
 
-    //}
+  //  }
 
 
   //public boolean grapple(char input){
