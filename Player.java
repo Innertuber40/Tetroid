@@ -12,6 +12,7 @@ import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 public class Player{
+  Boolean right = true;
   Boolean crouches = false;
   Boolean grapples = false;
   Boolean shoots = false;
@@ -29,8 +30,11 @@ public class Player{
     terminal.putCharacter('\u0048');
   }
 
+  //public void fall(){
+  //  Terminal.getCharacter(x,y);
 
-  //Terminal terminal = TerminalFacade.createTextTerminal();
+  //}
+
   public void move(Key k){
     key = k;
     terminal.moveCursor(x,y);
@@ -43,6 +47,7 @@ public class Player{
       terminal.putCharacter(' ');
       terminal.moveCursor(x,y+1);
       terminal.putCharacter(' ');
+      right = false;
       x--;
     }
 
@@ -51,6 +56,7 @@ public class Player{
       terminal.putCharacter(' ');
       terminal.moveCursor(x,y+1);
       terminal.putCharacter(' ');
+      right = true;
       x++;
     }
 
@@ -74,7 +80,7 @@ public class Player{
     terminal.moveCursor(x,y+1);
     terminal.putCharacter('\u0048');
   }
-}
+
 
 //  public void crouch(){
 
@@ -85,9 +91,38 @@ public class Player{
 
   //}
 
-  //public void shoot(char input){
-
-  //}
+  public void shoot(char input){
+    int prevX = x;
+    int prevY = y;
+    int range = 20
+    if (right){
+      x++;
+      terminal.moveCrusor(x,y);
+      terminal.putCharacter('\u002A')
+      while (range > 0){
+        terminal.putCharacter(' ');
+        x++;
+        terminal.moveCrusor(x,y);
+        terminal.putCharacter('\u002A');
+        range--;
+      }
+    }
+    else{
+      x--;
+      terminal.moveCrusor(x,y);
+      terminal.putCharacter('\u002A')
+      while (range > 0){
+        terminal.putCharacter(' ');
+        x--;
+        terminal.moveCrusor(x,y);
+        terminal.putCharacter('\u002A');
+        range--;
+      }
+    }
+    x = prevX;
+    y = prevY;
+  }
+}
 
   //private newRoom(int, boolean){
 
