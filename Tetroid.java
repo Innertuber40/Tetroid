@@ -40,7 +40,7 @@ public class Tetroid {
   public static void main(String[] args) {
     int x = 40;
 		int y = 16;
-		int roomNumber = 0;
+		Room currentRoom;
 	Key lastKeyPressed = new Key('o');
 
 		Terminal terminal = TerminalFacade.createTextTerminal();
@@ -106,6 +106,7 @@ public class Tetroid {
     entrances1.add(16);
     Room Room1 = new Room(1, room1, entrances1);
     resetRoom(Room0, terminal);
+    currentRoom = Room0;
 
     Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0);
     myBullet.gone();
@@ -135,7 +136,7 @@ public class Tetroid {
 		  }
 		  myBullet = new Bullet(x, y, mainCharacter, terminal, direction);
 	  }
-	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
+	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
 		x = (int)Room1.entrances.get(0) + 1;
 		y = (int)Room1.entrances.get(1);
@@ -143,7 +144,7 @@ public class Tetroid {
 		roomNumber = 1;
 	  }
 
-	  if (roomNumber == 1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
+	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
 	        resetRoom(Room0, terminal);
 		x = (int)Room1.entrances.get(2) - 1;
 		y = (int)Room1.entrances.get(3);
@@ -152,7 +153,7 @@ public class Tetroid {
 	  }
           //mainCharacter.grapple(key);
 	  if (!myBullet.getExists()) {
-	  	mainCharacter.move(key);
+	  	  mainCharacter.move(key);
 	  }
 	  x = mainCharacter.getX();
 	  y = mainCharacter.getY();
