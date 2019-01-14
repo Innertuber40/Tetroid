@@ -18,3 +18,5 @@ Change Log:
 1/10/19: Fiddled around with unbuntu vm due to numerous Windows problem
 
 1/12/19: Finished and tested movement, wrote a shoot method but untested, attempted a fall method when there isn't a ground but not much luck
+
+1/13/19: Continued working on shoot and grapple. Was able to move character up vertically but need to get rid of the trailing projection and add an animation of some sort. Looks more like a teleport
