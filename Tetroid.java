@@ -26,6 +26,19 @@ public class Tetroid {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
   public static void main(String[] args) {
+    int x = 10;
+		int y = 10;
+		Terminal terminal = TerminalFacade.createTextTerminal();
+		terminal.enterPrivateMode();
+
+    TerminalSize size = terminal.getTerminalSize();
+    terminal.setCursorVisible(false);
+    Player mainCharacter = new Player(terminal);
+    boolean running = true;
+    terminal.setCursorVisible(false);
+    long tStart = System.currentTimeMillis();
+    long lastSecond = 0;
+
     ArrayList room0 = new ArrayList();
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
@@ -52,19 +65,19 @@ public class Tetroid {
     entrances0.add(17);
     Room Room0 = new Room(0, room0, entrances0);
 
-    Terminal terminal = TerminalFacade.createTextTerminal();
-    terminal.enterPrivateMode();
-
-    TerminalSize size = terminal.getTerminalSize();
-    terminal.setCursorVisible(false);
-
     for(int i = 0; i < Room0.design.size(); i += 2) {
       putString((int)Room0.design.get(i), (int)Room0.design.get(i+1), " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
     }
+    while(running){
+      Key key = terminal.readInput();
+
+      if (key != null){
+        if (key.getKind() == Key.Kind.Escape) {
+          terminal.exitPrivateMode();
+          running = false;
+        }
+        mainCharacter.move(key);
+      }
+    }
   }
 }
-
-
-
-
-
