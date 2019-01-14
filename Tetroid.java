@@ -69,14 +69,17 @@ public class Tetroid {
       putString((int)Room0.design.get(i), (int)Room0.design.get(i+1), " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
     }
     while(running){
-      Key key = terminal.readInput();
-
-      if (key != null){
-        if (key.getKind() == Key.Kind.Escape) {
-          terminal.exitPrivateMode();
-          running = false;
+      	Key key = terminal.readInput();
+        //mainCharacter.fall();
+        if (key != null){
+          if (key.getKind() == Key.Kind.Escape) {
+            terminal.exitPrivateMode();
+            running = false;
+          }
+          mainCharacter.move(key);
+          mainCharacter.shoot(key);
+          mainCharacter.grapple(key);
         }
-        mainCharacter.move(key);
       }
     }
   }
