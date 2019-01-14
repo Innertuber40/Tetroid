@@ -80,7 +80,6 @@ public class Tetroid {
           mainCharacter.shoot(key);
           mainCharacter.grapple(key);
         }
-        mainCharacter.move(key);
       }
     }
   }
