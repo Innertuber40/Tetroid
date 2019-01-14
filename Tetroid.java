@@ -14,32 +14,43 @@ import com.googlecode.lanterna.input.KeyMappingProfile;
 import java.util.ArrayList;
 
 public class Tetroid {
+  public static void putString(int r, int c, String s, Terminal t, Terminal.Color fore, Terminal.Color back ){
+    t.moveCursor(r,c);
+    t.applyBackgroundColor(fore);
+    t.applyForegroundColor(Terminal.Color.BLACK);
+
+    for(int i = 0; i < s.length();i++){
+      t.putCharacter(s.charAt(i));
+    }
+    t.applyBackgroundColor(Terminal.Color.DEFAULT);
+    t.applyForegroundColor(Terminal.Color.DEFAULT);
+  }
   public static void main(String[] args) {
     ArrayList room0 = new ArrayList();
     for (int i = 0; i < 2; i++) {
-      for (int j = 0; j < 30; j++) {
+      for (int j = 0; j < 80; j++) {
         room0.add(j);
         room0.add(i);
       }
     }
     for (int i = 0; i < 16; i++) {
-      for (int j = 0; j < 2; j++) {
+      for (int j = 0; j < 4; j++) {
         room0.add(j);
         room0.add(i);
       }
     }
     for (int i = 18; i < 20; i++) {
-      for (int j = 0; j < 30; j++) {
+      for (int j = 0; j < 80; j++) {
         room0.add(j);
         room0.add(i);
       }
     }
     ArrayList entrances0 = new ArrayList();
-    entrances0.add(29);
+    entrances0.add(79);
     entrances0.add(17);
     entrances0.add(0);
     entrances0.add(17);
-    Room0 = new Room(0, room0, entrances0);
+    Room Room0 = new Room(0, room0, entrances0);
 
     Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
@@ -48,7 +59,12 @@ public class Tetroid {
     terminal.setCursorVisible(false);
 
     for(int i = 0; i < Room0.design.size(); i += 2) {
-      putString(Room0.design.get(i), Room0.design.get(i+1), " ", Terminal.Color.GREEN, Terminal.Color.BLACK);
+      putString((int)Room0.design.get(i), (int)Room0.design.get(i+1), " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
     }
   }
 }
+
+
+
+
+
