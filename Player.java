@@ -87,41 +87,60 @@ public class Player{
   //  }
 
 
-  //public boolean grapple(char input){
-
-  //}
-
-  public void shoot(char input){
+  public void grapple(Key input){
+    if (key.getCharacter() == 'x'){
     int prevX = x;
     int prevY = y;
-    int range = 20
+    int range = 5;
+    y--;
+    terminal.moveCursor(x,y);
+    terminal.putCharacter('\u002A');
+    while (range > 0){
+      terminal.putCharacter(' ');
+      y--;
+      terminal.moveCursor(x,y);
+      terminal.putCharacter('\u002A');
+      range--;
+    }
+  }
+  }
+
+  public void shoot(Key input){
+    int prevX = x;
+    int prevY = y;
+    int range = 20;
+    if (key.getCharacter() == 'z'){
     if (right){
       x++;
-      terminal.moveCrusor(x,y);
-      terminal.putCharacter('\u002A')
+      terminal.moveCursor(x,y);
+      terminal.putCharacter('\u002A');
+      terminal.putCharacter(' ');
       while (range > 0){
         terminal.putCharacter(' ');
         x++;
-        terminal.moveCrusor(x,y);
+        terminal.moveCursor(x,y);
         terminal.putCharacter('\u002A');
         range--;
       }
     }
     else{
       x--;
-      terminal.moveCrusor(x,y);
-      terminal.putCharacter('\u002A')
+      terminal.moveCursor(x,y);
+      terminal.putCharacter('\u002A');
       while (range > 0){
         terminal.putCharacter(' ');
         x--;
-        terminal.moveCrusor(x,y);
+        terminal.moveCursor(x,y);
         terminal.putCharacter('\u002A');
         range--;
       }
     }
     x = prevX;
     y = prevY;
+    }
   }
+
+
 }
 
   //private newRoom(int, boolean){

@@ -12,7 +12,7 @@ import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 
-public class Driver{
+public class Tetroid{
   public static void main(String[] args) {
 		int x = 10;
 		int y = 10;
@@ -20,7 +20,7 @@ public class Driver{
 		terminal.enterPrivateMode();
 
     TerminalSize size = terminal.getTerminalSize();
-    terminal.setCursorVisible(false);
+    terminal.setCursorVisible(true);
     Player mainCharacter = new Player(terminal);
     boolean running = true;
     terminal.setCursorVisible(false);
@@ -29,13 +29,15 @@ public class Driver{
 
     while(running){
       	Key key = terminal.readInput();
-
+        //mainCharacter.fall();
         if (key != null){
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
             running = false;
           }
           mainCharacter.move(key);
+          mainCharacter.shoot(key);
+          mainCharacter.grapple(key);
         }
     }
   }
