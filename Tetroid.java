@@ -26,14 +26,14 @@ public class Tetroid {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
   public static void main(String[] args) {
-    int x = 10;
-		int y = 10;
+    int x = 40;
+		int y = 16;
 		Terminal terminal = TerminalFacade.createTextTerminal();
 		terminal.enterPrivateMode();
 
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(false);
-    Player mainCharacter = new Player(terminal);
+    Player mainCharacter = new Player(terminal, 40, 16);
     boolean running = true;
     terminal.setCursorVisible(false);
     long tStart = System.currentTimeMillis();

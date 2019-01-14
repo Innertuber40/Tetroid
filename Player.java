@@ -17,12 +17,14 @@ public class Player{
   Boolean shoots = false;
   Terminal terminal;
   Key key;
-  int x = 10;
-  int y = 10;
+  int x;
+  int y;
 
   //constructors
-  public Player(Terminal t){
+  public Player(Terminal t, int xgvn, int ygvn){
     terminal = t;
+    x = xgvn;
+    y = ygvn;
     terminal.moveCursor(x,y);
     terminal.putCharacter('\u00a4');
     terminal.moveCursor(x,y+1);
@@ -54,13 +56,13 @@ public class Player{
       x++;
     }
 
-    if (key.getKind() == Key.Kind.ArrowUp) {
+    /*if (key.getKind() == Key.Kind.ArrowUp) {
       terminal.moveCursor(x,y);
       terminal.putCharacter(' ');
       terminal.moveCursor(x,y+1);
       terminal.putCharacter(' ');
       y--;
-    }
+    }*/
 
   //  if (key.getKind() == Key.Kind.ArrowDown) {
   //    terminal.moveCursor(x,y);
