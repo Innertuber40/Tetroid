@@ -96,7 +96,7 @@ public class Player{
   //  }
 
 
-  public void grapple(Key input){
+  /*public void grapple(Key input){
     if (key.getCharacter() == 'x'){
     int prevX = x;
     int prevY = y;
@@ -112,9 +112,9 @@ public class Player{
       range--;
     }
   }
-  }
+  }*/
 
-  public void shoot(Key input){
+  /*public void shoot(Key input){
     int prevX = x;
     int prevY = y;
     int range = 20;
@@ -147,7 +147,7 @@ public class Player{
     x = prevX;
     y = prevY;
     }
-  }
+  }*/
 
   public void resetRoom(int xgvn, int ygvn){
     x = xgvn;

@@ -41,6 +41,8 @@ public class Tetroid {
     int x = 40;
 		int y = 16;
 		int roomNumber = 0;
+	Key lastKeyPressed = new Key('o');
+
 		Terminal terminal = TerminalFacade.createTextTerminal();
 		terminal.enterPrivateMode();
 
@@ -105,6 +107,11 @@ public class Tetroid {
     Room Room1 = new Room(1, room1, entrances1);
     resetRoom(Room0, terminal);
 
+    Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0);
+    myBullet.gone();
+    int wait = 0;
+    boolean goRight = false;
+
     while(running){
       	Key key = terminal.readInput();
         //mainCharacter.fall();
@@ -113,8 +120,21 @@ public class Tetroid {
             terminal.exitPrivateMode();
             running = false;
           }
-          mainCharacter.move(key);
-	   
+	  if (!myBullet.getExists()){
+	  	if (key.getKind() == Key.Kind.ArrowRight) {
+			  goRight = true;
+	  	}
+	  	if (key.getKind() == Key.Kind.ArrowLeft) {
+			  goRight = false;
+		}
+	  }
+	  if (key.getCharacter() == 'z' && !myBullet.getExists()) {
+		  int direction = -1;
+		  if (goRight) {
+			  direction = 1;
+		  }
+		  myBullet = new Bullet(x, y, mainCharacter, terminal, direction);
+	  }
 	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
 		x = (int)Room1.entrances.get(0) + 1;
@@ -130,9 +150,30 @@ public class Tetroid {
 		mainCharacter.resetRoom(x, y);
 		roomNumber = 0;
 	  }
-          mainCharacter.shoot(key);
-          mainCharacter.grapple(key);
+          //mainCharacter.grapple(key);
+	  if (!myBullet.getExists()) {
+	  	mainCharacter.move(key);
+	  }
+	  x = mainCharacter.getX();
+	  y = mainCharacter.getY();
         }
-      }
+          if (myBullet.getExists()) {
+		  if (wait % 10000 == 0) {
+			if (goRight) {
+				myBullet.move("right", terminal);
+				x = mainCharacter.getX();
+			} else {
+				myBullet.move("left", terminal);
+				x = mainCharacter.getX();
+			}
+		if (myBullet.getX() <= 0 || myBullet.getX() >= 79) {
+				myBullet.gone();
+				terminal.moveCursor(myBullet.getX(), myBullet.getY());
+				terminal.putCharacter(' ');
+			}
+		  }
+		  wait++;
+	  }
     }
+  }
 }
