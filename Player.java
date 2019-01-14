@@ -12,12 +12,12 @@ import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
 public class Player{
-  Boolean right = true;
-  Boolean crouches = false;
-  Boolean grapples = false;
-  Boolean shoots = false;
-  Terminal terminal;
-  Key key;
+  private Boolean right = true;
+  private Boolean crouches = false;
+  private Boolean grapples = false;
+  private Boolean shoots = false;
+  private Terminal terminal;
+  private Key key;
   int x;
   int y;
 
@@ -30,6 +30,13 @@ public class Player{
     terminal.putCharacter('\u00a4');
     terminal.moveCursor(x,y+1);
     terminal.putCharacter('\u0048');
+  }
+
+  public int getX() {
+	  return x;
+  }
+  public int getY() {
+	  return y;
   }
 
   //public void fall(){
@@ -142,9 +149,12 @@ public class Player{
     }
   }
 
-
+  public void resetRoom(int xgvn, int ygvn){
+    x = xgvn;
+    y = ygvn;
+    terminal.moveCursor(x,y);
+    terminal.putCharacter('\u00a4');
+    terminal.moveCursor(x,y+1);
+    terminal.putCharacter('\u0048');
+  }
 }
-
-  //private newRoom(int, boolean){
-
-  //}

@@ -25,9 +25,22 @@ public class Tetroid {
     t.applyBackgroundColor(Terminal.Color.DEFAULT);
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
+
+  public static void resetRoom(Room room, Terminal terminal) {
+     for(int i = 0; i < 80; i++) {
+	     for(int j = 0; j < 20; j++) {
+		     putString(i, j, " ", terminal, Terminal.Color.BLACK, Terminal.Color.BLACK);
+	     }
+     }
+     for(int i = 0; i < room.design.size(); i += 2) {
+     putString((int)room.design.get(i), (int)room.design.get(i+1), " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
+     }
+  }
+
   public static void main(String[] args) {
     int x = 40;
 		int y = 16;
+		int roomNumber = 0;
 		Terminal terminal = TerminalFacade.createTextTerminal();
 		terminal.enterPrivateMode();
 
@@ -59,28 +72,59 @@ public class Tetroid {
       }
     }
     ArrayList entrances0 = new ArrayList();
-    entrances0.add(79);
-    entrances0.add(17);
     entrances0.add(0);
-    entrances0.add(17);
+    entrances0.add(16);
+    entrances0.add(79);
+    entrances0.add(16);
     Room Room0 = new Room(0, room0, entrances0);
 
-    for(int i = 0; i < Room0.design.size(); i += 2) {
-      putString((int)Room0.design.get(i), (int)Room0.design.get(i+1), " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
+    ArrayList room1 = new ArrayList();
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 80; j++) {
+        room1.add(j);
+        room1.add(i);
+      }
     }
+    for (int i = 0; i < 16; i++) {
+      for (int j = 76; j < 80; j++) {
+        room1.add(j);
+        room1.add(i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 80; j++) {
+        room1.add(j);
+        room1.add(i);
+      }
+    }
+    ArrayList entrances1 = new ArrayList();
+    entrances1.add(0);
+    entrances1.add(16);
+    entrances1.add(79);
+    entrances1.add(16);
+    Room Room1 = new Room(1, room1, entrances1);
+    resetRoom(Room0, terminal);
+
     while(running){
       	Key key = terminal.readInput();
         //mainCharacter.fall();
         if (key != null){
-          if (key.getKind() == Key.Kind.Escape) {
+	  if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
             running = false;
           }
           mainCharacter.move(key);
+	   
+	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2) && mainCharacter.getY() == (int)Room0.entrances.get(3)) {
+	        resetRoom(Room1, terminal);
+		x = (int)Room1.entrances.get(0);
+		y = (int)Room1.entrances.get(1);
+		mainCharacter.resetRoom(x, y);
+		roomNumber = 1;
+	  }
           mainCharacter.shoot(key);
           mainCharacter.grapple(key);
         }
       }
     }
-  }
 }
