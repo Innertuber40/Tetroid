@@ -115,12 +115,20 @@ public class Tetroid {
           }
           mainCharacter.move(key);
 	   
-	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2) && mainCharacter.getY() == (int)Room0.entrances.get(3)) {
+	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
-		x = (int)Room1.entrances.get(0);
+		x = (int)Room1.entrances.get(0) + 1;
 		y = (int)Room1.entrances.get(1);
 		mainCharacter.resetRoom(x, y);
 		roomNumber = 1;
+	  }
+
+	  if (roomNumber == 1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
+	        resetRoom(Room0, terminal);
+		x = (int)Room1.entrances.get(2) - 1;
+		y = (int)Room1.entrances.get(3);
+		mainCharacter.resetRoom(x, y);
+		roomNumber = 0;
 	  }
           mainCharacter.shoot(key);
           mainCharacter.grapple(key);
