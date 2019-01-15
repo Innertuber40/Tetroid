@@ -32,9 +32,11 @@ public class Tetroid {
 		     putString(i, j, " ", terminal, Terminal.Color.BLACK, Terminal.Color.BLACK);
 	     }
      }
-     for(int i = 0; i < room.design.size(); i += 2) {
-     putString((int)room.design.get(i), (int)room.design.get(i+1), " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
+     for(int i = 0; i < room.design.length; i++) {
+       for(int j = 0; j < room.design[i].length; j++) {
+     putString(room.design[i], room.design[i][j], " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
      }
+   }
   }
 
   public static void main(String[] args) {
@@ -54,11 +56,10 @@ public class Tetroid {
     long tStart = System.currentTimeMillis();
     long lastSecond = 0;
 
-    ArrayList room0 = new ArrayList();
+    Pixel[][] room0 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
-        room0.add(j);
-        room0.add(i);
+        room0[i][j] = new Pixel(i, j);
       }
     }
     for (int i = 0; i < 16; i++) {

@@ -15,12 +15,20 @@ import java.util.ArrayList;
 
 public class Room {
   public int roomNumber;
-  public ArrayList design;
+  public Pixel[][] design;
   public ArrayList entrances;
 
-  public Room(int num, ArrayList des, ArrayList entrs) {
+  public Room(int num, Pixel[][] des, ArrayList entrs) {
     roomNumber = num;
     design = des;
     entrances = entrs;
+  }
+
+  public static boolean isAPixel(int x, int y) {
+    if (des[x][y] != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
