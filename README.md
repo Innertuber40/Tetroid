@@ -20,3 +20,5 @@ Change Log:
 1/12/19: Finished and tested movement, wrote a shoot method but untested, attempted a fall method when there isn't a ground but not much luck
 
 1/13/19: Continued working on shoot and grapple. Was able to move character up vertically but need to get rid of the trailing projection and add an animation of some sort. Looks more like a teleport
+
+1/14/19: Decided grapple getting a class of its own might be easier to work with. Started Grapple.java and made constructor but gonna add to it. Grapple should be the similar to Bullet.java except in the up direction and aiming to add a trailing line.
