@@ -32,11 +32,13 @@ public class Tetroid {
 		     putString(i, j, " ", terminal, Terminal.Color.BLACK, Terminal.Color.BLACK);
 	     }
      }
-     for(int i = 0; i < room.design.length; i++) {
-       for(int j = 0; j < room.design[i].length; j++) {
-     putString(room.design[i], room.design[i][j], " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
+     for(int i = 0; i < 80; i++) {
+       for(int j = 0; j < 20; j++) {
+	 if(room.isAPixel(i, j)) {
+     	   putString(i, j, " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
      }
    }
+  }
   }
 
   public static void main(String[] args) {
@@ -59,19 +61,17 @@ public class Tetroid {
     Pixel[][] room0 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
-        room0[i][j] = new Pixel(i, j);
+        room0[j][i] = new Pixel(j, i);
       }
     }
     for (int i = 0; i < 16; i++) {
       for (int j = 0; j < 4; j++) {
-        room0.add(j);
-        room0.add(i);
+        room0[j][i] = new Pixel(j, i);
       }
     }
     for (int i = 18; i < 20; i++) {
       for (int j = 0; j < 80; j++) {
-        room0.add(j);
-        room0.add(i);
+        room0[j][i] = new Pixel(j, i);
       }
     }
     ArrayList entrances0 = new ArrayList();
@@ -81,23 +81,20 @@ public class Tetroid {
     entrances0.add(16);
     Room Room0 = new Room(0, room0, entrances0);
 
-    ArrayList room1 = new ArrayList();
+    Pixel[][] room1 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
-        room1.add(j);
-        room1.add(i);
+        room1[j][i] = new Pixel(j, i);
       }
     }
     for (int i = 0; i < 16; i++) {
       for (int j = 76; j < 80; j++) {
-        room1.add(j);
-        room1.add(i);
+        room1[j][i] = new Pixel(j, i);
       }
     }
     for (int i = 18; i < 20; i++) {
       for (int j = 0; j < 80; j++) {
-        room1.add(j);
-        room1.add(i);
+        room1[j][i] = new Pixel(j, i);
       }
     }
     ArrayList entrances1 = new ArrayList();
@@ -142,7 +139,7 @@ public class Tetroid {
 		x = (int)Room1.entrances.get(0) + 1;
 		y = (int)Room1.entrances.get(1);
 		mainCharacter.resetRoom(x, y);
-		roomNumber = 1;
+		currentRoom = Room1;
 	  }
 
 	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
@@ -150,7 +147,7 @@ public class Tetroid {
 		x = (int)Room1.entrances.get(2) - 1;
 		y = (int)Room1.entrances.get(3);
 		mainCharacter.resetRoom(x, y);
-		roomNumber = 0;
+		currentRoom = Room0;
 	  }
           //mainCharacter.grapple(key);
 	  if (!myBullet.getExists()) {

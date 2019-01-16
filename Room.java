@@ -24,8 +24,8 @@ public class Room {
     entrances = entrs;
   }
 
-  public static boolean isAPixel(int x, int y) {
-    if (des[x][y] != null) {
+  public boolean isAPixel(int x, int y) {
+    if (design[x][y] != null) {
       return true;
     } else {
       return false;
