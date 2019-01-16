@@ -38,8 +38,8 @@ public class Tetroid {
   }
 
   public static void main(String[] args) {
-    int x = 40;
-		int y = 16;
+    int x = 42; //40
+		int y = 14; //16
 		int roomNumber = 0;
 	Key lastKeyPressed = new Key('o');
 
@@ -48,7 +48,7 @@ public class Tetroid {
 
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(false);
-    Player mainCharacter = new Player(terminal, 40, 16);
+    Player mainCharacter = new Player(terminal, 42, 14);
     boolean running = true;
     terminal.setCursorVisible(false);
     long tStart = System.currentTimeMillis();
@@ -112,6 +112,9 @@ public class Tetroid {
     int wait = 0;
     boolean goRight = false;
 
+    //Grapple myGrapple = new Grapple(x, y, mainCharacter, terminal, -1);
+
+
     while(running){
       	Key key = terminal.readInput();
         //mainCharacter.fall();
@@ -174,6 +177,20 @@ public class Tetroid {
 		  }
 		  wait++;
 	  }
+/**
+    if (myGrapple.getExists()){
+      if ( wait % 10000 == 0){
+        myGrapple.move("up", terminal);
+        y = mainCharacter.getY();
+      if (myBullet.getY() >= 0){
+        myGrapple.gone();
+        terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
+        terminal.putCharacter(' ');
+      }
+      }
+      wait++;
+    }
+    **/
     }
   }
 }
