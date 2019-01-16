@@ -150,7 +150,7 @@ public class Tetroid {
 		currentRoom = Room0;
 	  }
           //mainCharacter.grapple(key);
-	  if (!myBullet.getExists()) {
+	  if (!myBullet.getExists && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) || currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-1, y) || currentRoom.isAPixel(x-1, y+1) || currentRoom.isAPixel(x-1, y+2) || currentRoom.isAPixel(x-1, y+3))))) {
 	  	  mainCharacter.move(key);
 	  }
 	  x = mainCharacter.getX();
