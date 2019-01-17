@@ -74,6 +74,7 @@ public class Tetroid {
         room0[j][i] = new Pixel(j, i);
       }
     }
+    //room0[45][17] = new Pixel(45, 17);  //for testing edge detection
     ArrayList entrances0 = new ArrayList();
     entrances0.add(0);
     entrances0.add(16);
@@ -150,7 +151,7 @@ public class Tetroid {
 		currentRoom = Room0;
 	  }
           //mainCharacter.grapple(key);
-	  if (!myBullet.getExists && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) || currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-1, y) || currentRoom.isAPixel(x-1, y+1) || currentRoom.isAPixel(x-1, y+2) || currentRoom.isAPixel(x-1, y+3))))) {
+	  if (!myBullet.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) /*|| currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3)*/)) || (!goRight && !(currentRoom.isAPixel(x-1, y) || currentRoom.isAPixel(x-1, y+1) /*|| currentRoom.isAPixel(x-1, y+2) || currentRoom.isAPixel(x-1, y+3)*/)))) {
 	  	  mainCharacter.move(key);
 	  }
 	  x = mainCharacter.getX();
