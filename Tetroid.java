@@ -149,16 +149,16 @@ public class Tetroid {
 	  }
 	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
-		x = 1;//(int)Room1.entrances.get(0) + 1;
-		y = 14;//(int)Room1.entrances.get(1);
+		x = (int)Room1.entrances.get(0) + 1;
+		y = (int)Room1.entrances.get(1) - 2;
 		mainCharacter.resetRoom(x, y);
 		roomNumber = 1;
 	  }
 
 	  if (roomNumber == 1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
 	        resetRoom(Room0, terminal);
-		x = 1;//(int)Room1.entrances.get(2) - 1;
-		y = 14;//(int)Room1.entrances.get(3);
+		x = (int)Room1.entrances.get(2) - 1;
+		y = (int)Room1.entrances.get(3) - 2;
 		mainCharacter.resetRoom(x, y);
 		roomNumber = 0;
 	  }
