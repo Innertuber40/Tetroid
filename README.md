@@ -24,3 +24,5 @@ Change Log:
 1/14/19: Decided grapple getting a class of its own might be easier to work with. Started Grapple.java and made constructor but gonna add to it. Grapple should be the similar to Bullet.java except in the up direction and aiming to add a trailing line.
 
 1/15/19: Changed the main character to 4 high by 2 wide instead of 2 by 1. Adjusted movement accordingly and starting to fix the start position of the bullet when shooting.
+
+1/16/19: Finished up crouch and prevent shooting when crouched. Started to implement a health system and a stationary enemy that could shoot eventually.

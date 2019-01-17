@@ -52,7 +52,7 @@ public class Tetroid {
 
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(false);
-    Player mainCharacter = new Player(terminal, 40, 16);
+    Player mainCharacter = new Player(terminal, 42, 14);
     boolean running = true;
     terminal.setCursorVisible(false);
     long tStart = System.currentTimeMillis();
@@ -112,6 +112,9 @@ public class Tetroid {
     int wait = 0;
     boolean goRight = false;
 
+    //Grapple myGrapple = new Grapple(x, y, mainCharacter, terminal, -1);
+
+
     while(running){
       	Key key = terminal.readInput();
         //mainCharacter.fall();
@@ -120,6 +123,11 @@ public class Tetroid {
             terminal.exitPrivateMode();
             running = false;
           }
+
+    if (key.getCharacter() == 'c'){
+      mainCharacter.crouch();
+    }
+
 	  if (!myBullet.getExists()){
 	  	if (key.getKind() == Key.Kind.ArrowRight) {
 			  goRight = true;
@@ -128,17 +136,21 @@ public class Tetroid {
 			  goRight = false;
 		}
 	  }
-	  if (key.getCharacter() == 'z' && !myBullet.getExists()) {
+	  if (key.getCharacter() == 'z' && !myBullet.getExists() && mainCharacter.crouched() == false) {
 		  int direction = -1;
 		  if (goRight) {
 			  direction = 1;
-		  }
-		  myBullet = new Bullet(x, y, mainCharacter, terminal, direction);
+
+		  myBullet = new Bullet(x+1, y, mainCharacter, terminal, direction);
+    }
+      else{
+        myBullet = new Bullet(x-2, y, mainCharacter, terminal,direction);
+      }
 	  }
 	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
 		x = (int)Room1.entrances.get(0) + 1;
-		y = (int)Room1.entrances.get(1);
+		y = (int)Room1.entrances.get(1) - 2;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room1;
 	  }
@@ -146,7 +158,7 @@ public class Tetroid {
 	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
 	        resetRoom(Room0, terminal);
 		x = (int)Room1.entrances.get(2) - 1;
-		y = (int)Room1.entrances.get(3);
+		y = (int)Room1.entrances.get(3) - 2;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room0;
 	  }
@@ -174,6 +186,20 @@ public class Tetroid {
 		  }
 		  wait++;
 	  }
+/**
+    if (myGrapple.getExists()){
+      if ( wait % 10000 == 0){
+        myGrapple.move("up", terminal);
+        y = mainCharacter.getY();
+      if (myBullet.getY() >= 0){
+        myGrapple.gone();
+        terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
+        terminal.putCharacter(' ');
+      }
+      }
+      wait++;
+    }
+    **/
     }
   }
 }
