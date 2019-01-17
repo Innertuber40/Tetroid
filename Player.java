@@ -18,11 +18,13 @@ public class Player{
   private Boolean shoots = false;
   private Terminal terminal;
   private Key key;
+  private int health;
   int x;
   int y;
 
   //constructors
   public Player(Terminal t, int xgvn, int ygvn){
+    health = 3;
     terminal = t;
     x = xgvn;
     y = ygvn;
