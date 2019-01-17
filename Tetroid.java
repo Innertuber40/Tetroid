@@ -123,6 +123,11 @@ public class Tetroid {
             terminal.exitPrivateMode();
             running = false;
           }
+
+    if (key.getCharacter() == 'c'){
+      mainCharacter.crouch();
+    }
+
 	  if (!myBullet.getExists()){
 	  	if (key.getKind() == Key.Kind.ArrowRight) {
 			  goRight = true;
@@ -131,25 +136,29 @@ public class Tetroid {
 			  goRight = false;
 		}
 	  }
-	  if (key.getCharacter() == 'z' && !myBullet.getExists()) {
+	  if (key.getCharacter() == 'z' && !myBullet.getExists() && mainCharacter.crouched() == false) {
 		  int direction = -1;
 		  if (goRight) {
 			  direction = 1;
-		  }
-		  myBullet = new Bullet(x, y, mainCharacter, terminal, direction);
+
+		  myBullet = new Bullet(x+1, y, mainCharacter, terminal, direction);
+    }
+      else{
+        myBullet = new Bullet(x-2, y, mainCharacter, terminal,direction);
+      }
 	  }
 	  if (roomNumber == 0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
-		x = (int)Room1.entrances.get(0) + 1;
-		y = (int)Room1.entrances.get(1);
+		x = 1;//(int)Room1.entrances.get(0) + 1;
+		y = 14;//(int)Room1.entrances.get(1);
 		mainCharacter.resetRoom(x, y);
 		roomNumber = 1;
 	  }
 
 	  if (roomNumber == 1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
 	        resetRoom(Room0, terminal);
-		x = (int)Room1.entrances.get(2) - 1;
-		y = (int)Room1.entrances.get(3);
+		x = 1;//(int)Room1.entrances.get(2) - 1;
+		y = 14;//(int)Room1.entrances.get(3);
 		mainCharacter.resetRoom(x, y);
 		roomNumber = 0;
 	  }
