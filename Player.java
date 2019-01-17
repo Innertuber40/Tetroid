@@ -207,10 +207,11 @@ public class Player{
   }
 
 
-  public void crouch(){ //c button
+  public boolean crouch(){ //c button
       if (crouches){
         crouches = false;
         y = y - 2;
+	return true;
       }
       else{
         terminal.moveCursor(x,y);
@@ -223,6 +224,7 @@ public class Player{
         terminal.putCharacter(' ');
         crouches = true;
         y = y + 2;
+	return false;
       }
     }
 
