@@ -112,7 +112,7 @@ public class Tetroid {
     boolean goRight = false;
 
     //Grapple myGrapple = new Grapple(x, y, mainCharacter, terminal, -1);
-
+    VerticalShootingEnemy duck1 = new VerticalShootingEnemy(50,10,3,terminal);
 
     while(running){
       	Key key = terminal.readInput();
