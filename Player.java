@@ -11,20 +11,20 @@ import com.googlecode.lanterna.input.InputDecoder;
 import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
-public class Player{
+public class Player extends Entity{
   private Boolean right = true;
   private Boolean crouches = false;
   private Boolean grapples = false;
   private Boolean shoots = false;
   private Terminal terminal;
   private Key key;
-  private int health;
+
   int x;
   int y;
 
   //constructors
   public Player(Terminal t, int xgvn, int ygvn){
-    health = 3;
+    super.setHealth(3);
     terminal = t;
     x = xgvn;
     y = ygvn;

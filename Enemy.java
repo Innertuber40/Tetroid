@@ -1,4 +1,4 @@
-public class Enemy{
+public class Enemy extends Entity{
   private int health;
   private boolean exists;
   private int x;
