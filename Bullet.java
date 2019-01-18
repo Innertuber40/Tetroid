@@ -3,10 +3,10 @@ import com.googlecode.lanterna.terminal.Terminal;
 public class Bullet {
 	private int x;
 	private int y;
-	private Player owns;
+	private Entity owns;
 	private boolean exists;
 
-	public Bullet(int startX, int startY, Player owner, Terminal terminal, int direction) {
+	public Bullet(int startX, int startY, Entity owner, Terminal terminal, int direction) {
 		x = startX;
 		y = startY;
 		owns = owner;
@@ -32,6 +32,9 @@ public class Bullet {
 			x--;
 		}
 		if (direction.equals("up")) {
+			y--;
+		}
+		if (direction.equals("down")){
 			y++;
 		}
 		terminal.putCharacter(' ');
