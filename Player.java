@@ -222,6 +222,10 @@ public class Player{
         terminal.putCharacter(' ');
         terminal.moveCursor(x-1,y+1);
         terminal.putCharacter(' ');
+        terminal.moveCursor(x,y+2);
+        terminal.putCharacter(' ');
+        terminal.moveCursor(x-1,y+3);
+        terminal.putCharacter(' ');
         crouches = true;
         y = y + 2;
 	return false;

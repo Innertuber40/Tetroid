@@ -164,12 +164,9 @@ public class Tetroid {
 		currentRoom = Room0;
 	  }
           //mainCharacter.grapple(key);
-	  if (!myBullet.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-1, y) || currentRoom.isAPixel(x-1, y+1) || currentRoom.isAPixel(x-1, y+2) || currentRoom.isAPixel(x-1, y+3))))) {
-	      if(!crouched && (((goRight && (currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3)))) || ((!goRight && (currentRoom.isAPixel(x-1, y+2) || currentRoom.isAPixel(x-1, y+3)))))) { 
+	  if (!myBullet.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y)))))) {
+	      if(crouched || (!crouched && (((goRight && (currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3)))) || ((!goRight && (currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))))) { 
 		  mainCharacter.move(key);
-	      }
-	      if(crouched) {
-		      mainCharacter.move(key);
 	      }
 	  }
 	  x = mainCharacter.getX();
@@ -184,7 +181,11 @@ public class Tetroid {
 				myBullet.move("left", terminal);
 				x = mainCharacter.getX();
 			}
-		if (myBullet.getX() <= 0 || myBullet.getX() >= 79) {
+			int direction = -1;
+			if(goRight) {
+				direction = 1;
+			}
+		if ((myBullet.getX() <= 0 || myBullet.getX() >= 79) || currentRoom.isAPixel(myBullet.getX()+direction, myBullet.getY() + direction)) {
 				myBullet.gone();
 				terminal.moveCursor(myBullet.getX(), myBullet.getY());
 				terminal.putCharacter(' ');
