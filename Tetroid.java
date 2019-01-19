@@ -114,6 +114,7 @@ public class Tetroid {
     //Grapple myGrapple = new Grapple(x, y, mainCharacter, terminal, -1);
     VerticalShootingEnemy duck1 = new VerticalShootingEnemy(50,10,3,terminal);
     Bullet duckpoop = new Bullet(50,12,duck1,terminal,0,"vertical");
+    HorizontalShootingEnemy duck2 = new HorizontalShootingEnemy(40,10,3,terminal);
 
     while(running){
       	Key key = terminal.readInput();
