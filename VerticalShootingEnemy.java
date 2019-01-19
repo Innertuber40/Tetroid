@@ -25,7 +25,6 @@ public class VerticalShootingEnemy extends Enemy{
     super.getTerminal().moveCursor(super.getX()+2,super.getY()+1);
     super.getTerminal().putCharacter('\u2013'); //tail
 
-    Bullet myBullet = new Bullet(x,y,this,terminal,1);
-    myBullet.move("down",super.getTerminal());
+    
   }
 }

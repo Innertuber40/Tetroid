@@ -106,13 +106,14 @@ public class Tetroid {
     resetRoom(Room0, terminal);
     currentRoom = Room0;
 
-    Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0);
+    Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0, "horizontal");
     myBullet.gone();
     int wait = 0;
     boolean goRight = false;
 
     //Grapple myGrapple = new Grapple(x, y, mainCharacter, terminal, -1);
     VerticalShootingEnemy duck1 = new VerticalShootingEnemy(50,10,3,terminal);
+    Bullet duckpoop = new Bullet(50,12,duck1,terminal,0,"vertical");
 
     while(running){
       	Key key = terminal.readInput();
@@ -135,15 +136,16 @@ public class Tetroid {
 			  goRight = false;
 		}
 	  }
+
 	  if (key.getCharacter() == 'z' && !myBullet.getExists() && mainCharacter.crouched() == false) {
 		  int direction = -1;
 		  if (goRight) {
 			  direction = 1;
 
-		  myBullet = new Bullet(x+1, y, mainCharacter, terminal, direction);
+		  myBullet = new Bullet(x+1, y, mainCharacter, terminal, direction,"horizontal");
     }
       else{
-        myBullet = new Bullet(x-2, y, mainCharacter, terminal,direction);
+        myBullet = new Bullet(x-2, y, mainCharacter, terminal,direction,"horizontal");
       }
 	  }
 	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
@@ -185,6 +187,12 @@ public class Tetroid {
 		  }
 		  wait++;
 	  }
+
+    if (duckpoop.getExists()){
+      if (wait % 10000 == 0){
+        duckpoop.move("down", terminal);
+      }
+    }
 /**
     if (myGrapple.getExists()){
       if ( wait % 10000 == 0){
