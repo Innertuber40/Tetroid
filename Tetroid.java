@@ -118,7 +118,6 @@ public class Tetroid {
 
     while(running){
       	Key key = terminal.readInput();
-        //mainCharacter.fall();
         if (key != null){
 	  if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
@@ -127,6 +126,7 @@ public class Tetroid {
 
     if (key.getCharacter() == 'c'){
       crouched = mainCharacter.crouch();
+      y = mainCharacter.getY();
     }
 
 	  if (!myBullet.getExists()){
@@ -150,13 +150,13 @@ public class Tetroid {
 	  }
 	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
-		x = (int)Room1.entrances.get(0) + 1;
+		x = (int)Room1.entrances.get(0) + 2;
 		y = (int)Room1.entrances.get(1) - 2;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room1;
 	  }
 
-	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(0)) {
+	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(0) + 1) {
 	        resetRoom(Room0, terminal);
 		x = (int)Room1.entrances.get(2) - 1;
 		y = (int)Room1.entrances.get(3) - 2;
@@ -165,12 +165,17 @@ public class Tetroid {
 	  }
           //mainCharacter.grapple(key);
 	  if (!myBullet.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y)))))) {
-	      if(crouched || (!crouched && (((goRight && (currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3)))) || ((!goRight && (currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))))) { 
+	      x= mainCharacter.getX();
+	      y = mainCharacter.getY();
+		  if(crouched){ 
 		  mainCharacter.move(key);
 	      }
-	  }
+	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) { 
+		  mainCharacter.move(key);
+	      }
 	  x = mainCharacter.getX();
 	  y = mainCharacter.getY();
+	  }
         }
           if (myBullet.getExists()) {
 		  if (wait % 10000 == 0) {
@@ -198,7 +203,7 @@ public class Tetroid {
       if ( wait % 10000 == 0){
         myGrapple.move("up", terminal);
         y = mainCharacter.getY();
-      if (myBullet.getY() >= 0){
+      if (currentRoom.isAPixel(myBullet.getX(), myBullet.getY() - 1)){
         myGrapple.gone();
         terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
         terminal.putCharacter(' ');
@@ -208,5 +213,8 @@ public class Tetroid {
     }
     **/
     }
+	if ((crouched && currentRoom.isAPixel(x, y+2)) || (!crouched && currentRoom.isAPixel(x, y+4))){
+        //mainCharacter.fall();
+	}
   }
 }
