@@ -63,34 +63,6 @@ public class Player extends Entity{
 
   public void move(Key k){
     key = k;
-    if (crouches){
-      terminal.moveCursor(x,y);
-      terminal.putCharacter('\u00F3'); //right eye with eyebrow looking thing
-      terminal.moveCursor(x-1,y);
-      terminal.putCharacter('\u00F2'); //left eyebrow
-      terminal.moveCursor(x,y+1);
-      terminal.putCharacter('\u00AF'); //right mouth
-      terminal.moveCursor(x-1,y+1);
-      terminal.putCharacter('\u00AF'); //left mouth
-    }
-    else{
-    terminal.moveCursor(x,y);
-    terminal.putCharacter('\u00F3'); //right eye with eyebrow looking thing
-    terminal.moveCursor(x-1,y);
-    terminal.putCharacter('\u00F2'); //left eyebrow
-    terminal.moveCursor(x,y+1);
-    terminal.putCharacter('\u00AF'); //right mouth
-    terminal.moveCursor(x-1,y+1);
-    terminal.putCharacter('\u00AF'); //left mouth
-    terminal.moveCursor(x,y+2);
-    terminal.putCharacter('\u2518'); //right chest
-    terminal.moveCursor(x-1,y+2);
-    terminal.putCharacter('\u2514');  //left chest
-    terminal.moveCursor(x,y+3);
-    terminal.putCharacter('\u007C'); //right leg
-    terminal.moveCursor(x-1,y+3);
-    terminal.putCharacter('\u007C'); //left leg
-    }
     if (key.getKind() == Key.Kind.ArrowLeft) {
       if (crouches){
         //y= y +2;
@@ -102,7 +74,6 @@ public class Player extends Entity{
         terminal.putCharacter(' '); //right mouth
         terminal.moveCursor(x-1,y+1);
         terminal.putCharacter(' '); //left mouth
-        x--;
 
       }
       else{
@@ -122,9 +93,9 @@ public class Player extends Entity{
       terminal.putCharacter(' ');
       terminal.moveCursor(x-1,y+3);
       terminal.putCharacter(' ');
-      right = false;
-      x--;
     }
+    x--;
+    right = false;
     }
 
     if (key.getKind() == Key.Kind.ArrowRight) {
@@ -137,7 +108,6 @@ public class Player extends Entity{
         terminal.putCharacter(' '); //right mouth
         terminal.moveCursor(x-1,y+1);
         terminal.putCharacter(' '); //left mouth
-        x++;
       }
       else{
       terminal.moveCursor(x,y);
@@ -156,9 +126,9 @@ public class Player extends Entity{
       terminal.putCharacter(' ');
       terminal.moveCursor(x-1,y+3);
       terminal.putCharacter(' ');
-      right = true;
-      x++;
     }
+    x++;
+    right = true;
     }
 
     /*if (key.getKind() == Key.Kind.ArrowUp) {
@@ -207,10 +177,27 @@ public class Player extends Entity{
   }
 
 
-  public void crouch(){ //c button
+  public boolean crouch(){ //c button
       if (crouches){
         crouches = false;
         y = y - 2;
+  terminal.moveCursor(x,y);
+  terminal.putCharacter('\u00F3'); //right eye with eyebrow looking thing
+  terminal.moveCursor(x-1,y);
+  terminal.putCharacter('\u00F2'); //left eyebrow
+  terminal.moveCursor(x,y+1);
+  terminal.putCharacter('\u00AF'); //right mouth
+  terminal.moveCursor(x-1,y+1);
+  terminal.putCharacter('\u00AF'); //left mouth
+  terminal.moveCursor(x,y+2);
+  terminal.putCharacter('\u2518'); //right chest
+  terminal.moveCursor(x-1,y+2);
+  terminal.putCharacter('\u2514');  //left chest
+  terminal.moveCursor(x,y+3);
+  terminal.putCharacter('\u007C'); //right leg
+  terminal.moveCursor(x-1,y+3);
+  terminal.putCharacter('\u007C'); //left leg
+	return true;
       }
       else{
         terminal.moveCursor(x,y);
@@ -223,6 +210,15 @@ public class Player extends Entity{
         terminal.putCharacter(' ');
         crouches = true;
         y = y + 2;
+    terminal.moveCursor(x,y);
+    terminal.putCharacter('\u00F3'); //right eye with eyebrow looking thing
+    terminal.moveCursor(x-1,y);
+    terminal.putCharacter('\u00F2'); //left eyebrow
+    terminal.moveCursor(x,y+1);
+    terminal.putCharacter('\u00AF'); //right mouth
+    terminal.moveCursor(x-1,y+1);
+    terminal.putCharacter('\u00AF'); //left mouth
+	return false;
       }
     }
 
