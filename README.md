@@ -26,3 +26,7 @@ Change Log:
 1/15/19: Changed the main character to 4 high by 2 wide instead of 2 by 1. Adjusted movement accordingly and starting to fix the start position of the bullet when shooting.
 
 1/16/19: Finished up crouch and prevent shooting when crouched. Started to implement a health system and a stationary enemy that could shoot eventually.
+
+1/17/19: Was able to get a the VerticalShootingEnemy to shoot down but need to implement edge detection so it can stop and reshoot
+
+1/19/19: Worked on grapple. Was able to get it to shoot up with button x but needs ceiling detection. Worked on HorizontalShootingEnemy but still needs edge detection like Vertical.
