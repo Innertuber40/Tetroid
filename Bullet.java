@@ -7,6 +7,7 @@ public class Bullet {
 	private boolean exists;
 	private Terminal terminal;
 
+
 	public Bullet(int startX, int startY, Entity owner, Terminal t, int direction,String HorV) {
 
 		x = startX;
@@ -30,13 +31,21 @@ public class Bullet {
 		return y;
 	}
 
+	public void setY(int newy){
+		y = newy;
+	}
+
 	public Terminal getTerminal(){
 		return terminal;
 	}
 	public boolean getExists() {
 		return exists;
 	}
-	public void move(String direction, Terminal terminal) {
+	public void setExists(boolean tf){
+		exists = tf;
+	}
+
+	public void move(String direction, Terminal terminal,boolean grap) {
 		terminal.moveCursor(x,y);
 		if (direction.equals("right")) {
 			x++;
@@ -52,7 +61,12 @@ public class Bullet {
 		}
 		terminal.putCharacter(' ');
       		terminal.moveCursor(x,y);
+					if (grap){
+						terminal.putCharacter('\u2038');
+					}
+					else{
       		terminal.putCharacter('\u002A');
+				}
 	}
 	public void gone() {
 		exists = false;

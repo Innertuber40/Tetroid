@@ -111,7 +111,8 @@ public class Tetroid {
     int wait = 0;
     boolean goRight = false;
 
-    //Grapple myGrapple = new Grapple(x, y, mainCharacter, terminal, -1);
+    Grapple myGrapple = new Grapple(x,y,mainCharacter,terminal,-1,"vertical");
+    myGrapple.setExists(false);
     VerticalShootingEnemy duck1 = new VerticalShootingEnemy(50,10,3,terminal);
     Bullet duckpoop = new Bullet(50,12,duck1,terminal,0,"vertical");
     HorizontalShootingEnemy duck2 = new HorizontalShootingEnemy(40,10,3,terminal);
@@ -120,12 +121,18 @@ public class Tetroid {
       	Key key = terminal.readInput();
         //mainCharacter.fall();
         if (key != null){
+
+        if (key.getCharacter() == 'x' && !myGrapple.getExists() && mainCharacter.crouched() == false){
+          myGrapple = new Grapple(x,y-1,mainCharacter,terminal,-1,"vertical");
+          myGrapple.setExists(true);
+          //terminal.putCharacter('\u2038');
+        }
 	  if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
             running = false;
           }
 
-    if (key.getCharacter() == 'c'){
+    if (key.getCharacter() == 'c' ){
       mainCharacter.crouch();
     }
 
@@ -165,19 +172,29 @@ public class Tetroid {
 		currentRoom = Room0;
 	  }
           //mainCharacter.grapple(key);
-	  if (!myBullet.getExists()) {
+	  if (!myBullet.getExists() ) {
 	  	  mainCharacter.move(key);
 	  }
+
 	  x = mainCharacter.getX();
 	  y = mainCharacter.getY();
         }
+
+    if (myGrapple.getExists()){
+      if (wait % 10000 == 0){
+        myGrapple.move("up", terminal,true);
+      }
+    }
+    if (myGrapple.getY() == 2){
+      myGrapple.gone();
+    }
           if (myBullet.getExists()) {
 		  if (wait % 10000 == 0) {
 			if (goRight) {
-				myBullet.move("right", terminal);
+				myBullet.move("right", terminal,false);
 				x = mainCharacter.getX();
 			} else {
-				myBullet.move("left", terminal);
+				myBullet.move("left", terminal,false);
 				x = mainCharacter.getX();
 			}
 		if (myBullet.getX() <= 0 || myBullet.getX() >= 79) {
@@ -189,11 +206,13 @@ public class Tetroid {
 		  wait++;
 	  }
 
-    if (duckpoop.getExists()){
+    if (!duckpoop.getExists()){
       if (wait % 10000 == 0){
-        duckpoop.move("down", terminal);
+        duckpoop.move("down", terminal,false);
+        x = mainCharacter.getX();
       }
     }
+
 /**
     if (myGrapple.getExists()){
       if ( wait % 10000 == 0){
