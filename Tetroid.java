@@ -108,6 +108,61 @@ public class Tetroid {
     resetRoom(Room0, terminal);
     currentRoom = Room0;
 
+    Pixel[][] room2 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 80; j++) {
+        room2[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 16; i++) {
+      for (int j = 0; j < 4; j++) {
+        room2[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 35; j++) {
+        room2[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 45; j < 80; j++) {
+        room2[j][i] = new Pixel(j, i);
+      }
+    }
+    ArrayList entrances2 = new ArrayList();
+    entrances2.add(0);
+    entrances2.add(16);
+    entrances2.add(79);
+    entrances2.add(16);
+    entrances2.add(35);
+    entrances2.add(19);
+    entrances2.add(44);
+    entrances2.add(19);
+    Room Room2 = new Room(2, room2, entrances2);
+
+    Pixel[][] room3 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 80; j++) {
+        room3[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 18; i++) {
+      for (int j = 76; j < 80; j++) {
+        room3[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 80; j++) {
+        room3[j][i] = new Pixel(j, i);
+      }
+    }
+    ArrayList entrances3 = new ArrayList();
+    entrances3.add(0);
+    entrances3.add(16);
+    Room Room3 = new Room(3, room3, entrances3);
+
+    resetRoom(Room0, terminal);
+    currentRoom = Room0;
     Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0, "horizontal");
     myBullet.gone();
     int wait = 0;
@@ -233,10 +288,16 @@ public class Tetroid {
 
 	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(0) + 1) {
 	        resetRoom(Room0, terminal);
-		x = (int)Room1.entrances.get(2) - 1;
-		y = (int)Room1.entrances.get(3) - 2;
+		x = (int)Room0.entrances.get(2) - 1;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room0;
+    loaded = false;
+	  }
+	  if (currentRoom == Room1 && mainCharacter.getX() == (int)Room1.entrances.get(2)) {
+	        resetRoom(Room2, terminal);
+		x = (int)Room2.entrances.get(0) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room2;
     loaded = false;
 	  }
 	  if (!myBullet.getExists() && !myGrapple.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y)))))) {

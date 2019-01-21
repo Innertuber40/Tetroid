@@ -272,7 +272,7 @@ public class Player extends Entity{
     terminal.putCharacter('\u00AF'); //right mouth
     terminal.moveCursor(x-1,y+1);
     terminal.putCharacter('\u00AF'); //left mouth
-	return false;
+	return crouches;
       }
     }
 
