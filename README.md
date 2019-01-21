@@ -30,3 +30,5 @@ Change Log:
 1/17/19: Was able to get a the VerticalShootingEnemy to shoot down but need to implement edge detection so it can stop and reshoot
 
 1/19/19: Worked on grapple. Was able to get it to shoot up with button x but needs ceiling detection. Worked on HorizontalShootingEnemy but still needs edge detection like Vertical.
+
+1/20/19: Player now is able to die from enemy bullets and respawns at a set location. Spawn location will probably be fixed later. Grapple now does damage and insta-kills enemies as well as regular bullets. Grapple is able to pull the player up. Once grappled the player will fall if the player moves or press grapple again.
