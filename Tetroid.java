@@ -181,7 +181,7 @@ public class Tetroid {
 
         if (key != null){
 
-        if (key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false){
+        if (drop == true && key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false){
           myGrapple = new Grapple(x,y-1,mainCharacter,terminal,-1,"vertical");
           myGrapple.setExists(true);
           //terminal.putCharacter('\u2038');
