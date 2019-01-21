@@ -125,7 +125,14 @@ public class Tetroid {
       	Key key = terminal.readInput();
         if (currentRoom == Room1 && loaded == false){
           duck3 = new VerticalShootingEnemy(50,10,3,terminal);
+          duck1 = null;
+          duck2 = null;
           loaded = true;
+        }
+        if (currentRoom == Room0 && loaded == false){
+          duck3 = null;
+          duck1 = new VerticalShootingEnemy(50,10,3,terminal);
+          duck2 = new HorizontalShootingEnemy(40,10,3,terminal);
         }
         if (key != null){
 
