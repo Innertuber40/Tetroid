@@ -29,4 +29,24 @@ public class Enemy extends Entity{
   public void setHealth(int h){
     health = h;
   }
+  public void takeDamage(int damage){
+    health = health - damage;
+  }
+
+  public Boolean hit(int bulletX, int bulletY){
+    if ((bulletX == x && bulletY == y) ||
+        (bulletX == x - 1 && bulletY == y) ||
+        (bulletX == x - 2 && bulletY == y) ||
+        (bulletX == x && bulletY == y + 1) ||
+        (bulletX == x - 1 && bulletY == y + 1) ||
+        (bulletX == x - 2 && bulletY == y + 1) ||
+        (bulletX == x + 1 && bulletY == y + 1) ||
+        (bulletX == x + 2 && bulletY == y + 1)
+    ){
+      return true;
+    }
+
+      return false;
+    
+  }
 }

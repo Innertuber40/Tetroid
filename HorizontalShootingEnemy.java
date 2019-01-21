@@ -18,9 +18,27 @@ public class HorizontalShootingEnemy extends Enemy{
     super.getTerminal().putCharacter('\u0029'); //butt
     super.getTerminal().moveCursor(super.getX()+2,super.getY()+1);
     super.getTerminal().putCharacter('\u2215'); //tail
+  }
     //>*)
     //(L_)/
+    public void clear(){
+      super.getTerminal().moveCursor(super.getX(),super.getY());
+      super.getTerminal().putCharacter(' '); //back of the head
+      super.getTerminal().moveCursor(super.getX()-1,super.getY());
+      super.getTerminal().putCharacter(' '); //eye
+      super.getTerminal().moveCursor(super.getX()-2,super.getY());
+      super.getTerminal().putCharacter(' '); //beak
+      super.getTerminal().moveCursor(super.getX(),super.getY()+1);
+      super.getTerminal().putCharacter(' '); //wing
+      super.getTerminal().moveCursor(super.getX()-1,super.getY()+1);
+      super.getTerminal().putCharacter(' '); //stomach
+      super.getTerminal().moveCursor(super.getX()-2,super.getY()+1);
+      super.getTerminal().putCharacter(' '); //chest
+      super.getTerminal().moveCursor(super.getX()+1,super.getY()+1);
+      super.getTerminal().putCharacter(' '); //butt
+      super.getTerminal().moveCursor(super.getX()+2,super.getY()+1);
+      super.getTerminal().putCharacter(' '); //tail
+    }
 
 
-  }
 }

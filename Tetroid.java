@@ -131,7 +131,7 @@ public class Tetroid {
           duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
           vduck1 = null;
           vduck2 = null;
-          hduck1 = null;
+          hduck1 = new HorizontalShootingEnemy(30,14,3,terminal);
           hduck2 = null;
           hduck3 = null;
           loaded = true;
@@ -155,6 +155,20 @@ public class Tetroid {
             }
             //x = mainCharacter.getX();
           }
+        }
+
+      if (myBullet != null && myGrapple != null && vduck3 != null &&
+      vduck3.hit(myBullet.getX(), myBullet.getY()) ){ //||
+      //vduck3.hit(myGrapple.getX(),myGrapple.getY())){
+        //terminal.putCharacter('\u0028');
+          myBullet = null;
+          vduck3.takeDamage(1);
+        }
+
+        if (vduck3 != null && vduck3.getHealth() <= 0){
+          vduck3.clear();
+          vduck3 = null;
+          duckpoop = null;
         }
 
         if (mainCharacter.getAlive() == false){
@@ -234,7 +248,7 @@ public class Tetroid {
 	  }
 	}
           if (myBullet.getExists()) {
-		  if (wait % 10000 == 0) {
+		  if (wait % 10 == 0) {
 			if (goRight) {
 				myBullet.move("right", terminal,false);
 				x = mainCharacter.getX();
@@ -264,7 +278,7 @@ public class Tetroid {
 
 
     if (myGrapple.getExists()){
-      if ( wait % 50000 == 0){
+      if ( wait % 50 == 0){
         myGrapple.move("up", terminal, false);
       //  if (currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() + 1){
       //    mainCharacter.place(myGrapple.getX(), myGrapple.getY() + 1);
@@ -284,7 +298,8 @@ public class Tetroid {
       wait++;
     }
 
-    if (!(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4)) && drop == true){
+    if (mainCharacter.crouched() == false && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4))
+     && drop == true){
       //mainCharacter.fall();
       x = mainCharacter.getX();
       y = mainCharacter.getY() + 1;
