@@ -127,11 +127,11 @@ public class Tetroid {
     while(running){
       	Key key = terminal.readInput();
         if (currentRoom == Room1 && loaded == false){
-          vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
+          vduck3 = new VerticalShootingEnemy(30,14,3,terminal);
           duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
           vduck1 = null;
           vduck2 = null;
-          hduck1 = new HorizontalShootingEnemy(30,14,3,terminal);
+          hduck1 = null; //new HorizontalShootingEnemy(30,14,3,terminal);
           hduck2 = null;
           hduck3 = null;
           loaded = true;
@@ -161,7 +161,8 @@ public class Tetroid {
       vduck3.hit(myBullet.getX(), myBullet.getY()) ){ //||
       //vduck3.hit(myGrapple.getX(),myGrapple.getY())){
         //terminal.putCharacter('\u0028');
-          myBullet = null;
+          //myBullet = null;
+          myBullet.setExists(false);
           vduck3.takeDamage(1);
         }
 
@@ -248,7 +249,7 @@ public class Tetroid {
 	  }
 	}
           if (myBullet.getExists()) {
-		  if (wait % 10 == 0) {
+		  if (wait % 100 == 0) {
 			if (goRight) {
 				myBullet.move("right", terminal,false);
 				x = mainCharacter.getX();
@@ -278,7 +279,7 @@ public class Tetroid {
 
 
     if (myGrapple.getExists()){
-      if ( wait % 50 == 0){
+      if ( wait % 500 == 0){
         myGrapple.move("up", terminal, false);
       //  if (currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() + 1){
       //    mainCharacter.place(myGrapple.getX(), myGrapple.getY() + 1);
