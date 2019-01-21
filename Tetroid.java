@@ -280,7 +280,11 @@ public class Tetroid {
 	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances.get(2)) {
 	        resetRoom(Room1, terminal);
 		x = (int)Room1.entrances.get(0) + 2;
-		y = (int)Room1.entrances.get(1) - 2;
+		if(!crouched) {
+		  y = (int)Room1.entrances.get(1) - 2;
+		} else {
+		  y = (int)Room1.entrances.get(1);
+		}
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room1;
     loaded = false;
