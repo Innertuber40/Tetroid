@@ -116,23 +116,42 @@ public class Tetroid {
 
     Grapple myGrapple = new Grapple(x,y,mainCharacter,terminal,-1,"vertical");
     myGrapple.setExists(false);
-    VerticalShootingEnemy duck1 = new VerticalShootingEnemy(50,10,3,terminal);
-    Bullet duckpoop = new Bullet(50,12,duck1,terminal,0,"vertical");
-    HorizontalShootingEnemy duck2 = new HorizontalShootingEnemy(40,10,3,terminal);
-    VerticalShootingEnemy duck3;
+    VerticalShootingEnemy vduck1 = null;
+    VerticalShootingEnemy vduck2 = null;
+    VerticalShootingEnemy vduck3 = null;
+    HorizontalShootingEnemy hduck1 = null;
+    HorizontalShootingEnemy hduck2 = null;
+    HorizontalShootingEnemy hduck3 = null;
+    Bullet duckpoop = null; // = new Bullet(50,12,duck1,terminal,0,"vertical");
     Boolean loaded = false;
     while(running){
       	Key key = terminal.readInput();
         if (currentRoom == Room1 && loaded == false){
-          duck3 = new VerticalShootingEnemy(50,10,3,terminal);
-          duck1 = null;
-          duck2 = null;
+          vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
+          duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
+          vduck1 = null;
+          vduck2 = null;
+          hduck1 = null;
+          hduck2 = null;
+          hduck3 = null;
           loaded = true;
         }
         if (currentRoom == Room0 && loaded == false){
-          duck3 = null;
-          duck1 = new VerticalShootingEnemy(50,10,3,terminal);
-          duck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+          vduck2 = null;
+          vduck3 = null;
+          hduck1 = null;
+          hduck3 = null;
+          vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
+          hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+        }
+        if (duckpoop != null && duckpoop.getExists()){
+          if (wait % 5000000 == 0){
+            duckpoop.move("down", terminal,false);
+            if (currentRoom.isAPixel(duckpoop.getX(),duckpoop.getY()+1)){
+              duckpoop.setY(12);
+            }
+            //x = mainCharacter.getX();
+          }
         }
         if (key != null){
 

@@ -30,6 +30,9 @@ public class Bullet {
 	public int getY() {
 		return y;
 	}
+	public void setX(int newX){
+		x = newX;
+	}
 
 	public void setY(int newy){
 		y = newy;
