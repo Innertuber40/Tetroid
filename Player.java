@@ -18,6 +18,7 @@ public class Player extends Entity{
   private Boolean shoots = false;
   private Terminal terminal;
   private Key key;
+  private Boolean alive = true;
 
   int x;
   int y;
@@ -45,10 +46,25 @@ public class Player extends Entity{
     terminal.moveCursor(x-1,y+3);
     terminal.putCharacter('\u007C'); //left leg
   }
+  public void takeDamage(int damage){
+    super.setHealth(super.getHealth() - damage);
+    if (super.getHealth() <= 0){
+      alive = false;
+    }
+  }
 
   public Boolean crouched(){
     return crouches;
   }
+
+  public Boolean getAlive(){
+    return alive;
+  }
+
+  public void setAlive(Boolean respawn){
+    alive = respawn;
+  }
+
   public int getX() {
 	  return x;
   }

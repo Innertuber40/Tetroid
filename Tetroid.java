@@ -146,6 +146,9 @@ public class Tetroid {
         }
         if (duckpoop != null && duckpoop.getExists()){
           if (wait % 5000000 == 0){
+            if (duckpoop.getX() == mainCharacter.getX() && duckpoop.getY() == mainCharacter.getY()){
+              mainCharacter.takeDamage(1);
+            }
             duckpoop.move("down", terminal,false);
             if (currentRoom.isAPixel(duckpoop.getX(),duckpoop.getY()+1)){
               duckpoop.setY(12);
@@ -153,6 +156,14 @@ public class Tetroid {
             //x = mainCharacter.getX();
           }
         }
+
+        if (mainCharacter.getAlive() == false){
+          mainCharacter.clear();
+          mainCharacter.resetRoom(10,10);
+          mainCharacter.setHealth(3);
+          mainCharacter.setAlive(true);
+        }
+
         if (key != null){
 
         if (key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false){
