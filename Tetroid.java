@@ -304,6 +304,13 @@ public class Tetroid {
 		currentRoom = Room2;
     loaded = false;
 	  }
+	  if (currentRoom == Room2 && mainCharacter.getX() == (int)Room2.entrances.get(0) + 1) {
+	        resetRoom(Room1, terminal);
+		x = (int)Room1.entrances.get(2) - 1;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room1;
+    loaded = false;
+	  }
 	  if (!myBullet.getExists() && !myGrapple.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y)))))) {
 	      x= mainCharacter.getX();
 	      y = mainCharacter.getY();
