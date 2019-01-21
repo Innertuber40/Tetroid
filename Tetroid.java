@@ -127,7 +127,7 @@ public class Tetroid {
     while(running){
       	Key key = terminal.readInput();
         if (currentRoom == Room1 && loaded == false){
-          vduck3 = new VerticalShootingEnemy(30,14,3,terminal);
+          vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
           duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
           vduck1 = null;
           vduck2 = null;
@@ -160,11 +160,17 @@ public class Tetroid {
       if (myBullet != null && myGrapple != null && vduck3 != null &&
       vduck3.hit(myBullet.getX(), myBullet.getY()) ){ //||
       //vduck3.hit(myGrapple.getX(),myGrapple.getY())){
-        //terminal.putCharacter('\u0028');
-          //myBullet = null;
           myBullet.setExists(false);
           vduck3.takeDamage(1);
         }
+        if (myGrapple != null && vduck3 != null &&
+        vduck3.hit(myGrapple.getX(),myGrapple.getY())){
+            myGrapple.setExists(false);
+            vduck3.takeDamage(1);
+            //duckpoop.setExists(false);
+          }
+
+
 
         if (vduck3 != null && vduck3.getHealth() <= 0){
           vduck3.clear();
