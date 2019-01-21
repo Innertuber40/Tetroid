@@ -240,7 +240,7 @@ public class Tetroid {
       wait++;
     }
 
-    if (!(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4)) && drop == true){
+    if (!(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4)) && drop == true){
       //mainCharacter.fall();
       x = mainCharacter.getX();
       y = mainCharacter.getY() + 1;
