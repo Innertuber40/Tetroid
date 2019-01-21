@@ -252,7 +252,7 @@ public class Tetroid {
             running = false;
           }
 
-    if (key.getCharacter() == 'c'){
+    if (key.getCharacter() == 'c' && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){
       crouched = mainCharacter.crouch();
       y = mainCharacter.getY();
     }
