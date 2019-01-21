@@ -45,6 +45,7 @@ public class Tetroid {
     int x = 40;
 		int y = 16;
 		Room currentRoom;
+    boolean drop = true;
 	Key lastKeyPressed = new Key('o');
 
 		Terminal terminal = TerminalFacade.createTextTerminal();
@@ -176,11 +177,13 @@ public class Tetroid {
 	  if (!myBullet.getExists() && !myGrapple.getExists() && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y)))))) {
 	      x= mainCharacter.getX();
 	      y = mainCharacter.getY();
-		  if(crouched){ 
+		  if(crouched){
 		  mainCharacter.move(key);
+      drop = true;
 	      }
-	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) { 
+	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) {
 		  mainCharacter.move(key);
+      drop = true;
 	      }
 	  x = mainCharacter.getX();
   y = mainCharacter.getY();
@@ -219,13 +222,31 @@ public class Tetroid {
     if (myGrapple.getExists()){
       if ( wait % 50000 == 0){
         myGrapple.move("up", terminal, false);
+      //  if (currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() + 1){
+      //    mainCharacter.place(myGrapple.getX(), myGrapple.getY() + 1);
+        //}
+
       if (currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() - 1)){
         myGrapple.gone();
+        mainCharacter.clear();
         terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
-        terminal.putCharacter(' ');
+        x = myGrapple.getX();
+        y = myGrapple.getY();
+        mainCharacter.place(x,y);
+        drop = false;
+        //terminal.putCharacter(' ');
       }
       }
       wait++;
+    }
+
+    if (!(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4)) && drop == true){
+      //mainCharacter.fall();
+      x = mainCharacter.getX();
+      y = mainCharacter.getY() + 1;
+      mainCharacter.clear();
+      mainCharacter.place(x,y);
+
     }
 	//if ((crouched && currentRoom.isAPixel(x, y+2)) || (!crouched && currentRoom.isAPixel(x, y+4))){
         //mainCharacter.fall();

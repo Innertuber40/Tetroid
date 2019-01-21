@@ -60,6 +60,44 @@ public class Player extends Entity{
   //  Terminal.getCharacter(x,y);
 
   //}
+  public void clear(){
+    terminal.moveCursor(x,y);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x-1,y);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x,y+1);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x-1,y+1);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x,y+2);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x-1,y+2);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x,y+3);
+    terminal.putCharacter(' ');
+    terminal.moveCursor(x-1,y+3);
+    terminal.putCharacter(' ');
+  }
+  public void place(int newX, int newY){
+    x = newX;
+    y = newY;
+    terminal.moveCursor(x,y);
+    terminal.putCharacter('\u00F3'); //right eye with eyebrow looking thing
+    terminal.moveCursor(x-1,y);
+    terminal.putCharacter('\u00F2'); //left eyebrow
+    terminal.moveCursor(x,y+1);
+    terminal.putCharacter('\u00AF'); //right mouth
+    terminal.moveCursor(x-1,y+1);
+    terminal.putCharacter('\u00AF'); //left mouth
+    terminal.moveCursor(x,y+2);
+    terminal.putCharacter('\u2518'); //right chest
+    terminal.moveCursor(x-1,y+2);
+    terminal.putCharacter('\u2514');  //left chest
+    terminal.moveCursor(x,y+3);
+    terminal.putCharacter('\u007C'); //right leg
+    terminal.moveCursor(x-1,y+3);
+    terminal.putCharacter('\u007C'); //left leg
+  }
 
   public void move(Key k){
     key = k;
