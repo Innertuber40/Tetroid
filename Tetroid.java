@@ -273,6 +273,71 @@ public class Tetroid {
     entrances7.add(19);
     Room Room7 = new Room(7, room7, entrances7);
 
+    Pixel[][] room8 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+	    for (int j = 0; j < 80; j++) {
+		    if (j == 65) {
+			    j = 76;
+		    }
+		    room8[j][i] = new Pixel(j, i);
+	    }
+    }
+    for (int i = 2; i < 18; i++) {
+	    for (int j = 0; j < 80; j++) {
+		    if (j == 8) {
+			    j = 76;
+		    }
+		    room8[j][i] = new Pixel(j, i);
+	    }
+    }
+    for (int i = 18; i < 20; i++) {
+	    for (int j = 0; j < 80; j++) {
+		    if (j == 65) {
+			    j = 76;
+		    }
+		    room8[j][i] = new Pixel(j, i);
+	    }
+    }
+    ArrayList<Integer> entrances8 = new ArrayList<Integer>();
+    entrances8.add(66);
+    entrances8.add(0);
+    entrances8.add(66);
+    entrances8.add(19);
+    Room Room8 = new Room(8, room8, entrances8);
+    
+    Pixel[][] room9 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 65; j++) {
+        room9[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 2; i++) {
+      for (int j = 76; j < 80; j++) {
+        room9[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 16; i++) {
+      for (int j = 76; j < 80; j++) {
+        room9[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 18; i++) {
+      for (int j = 76; j < 80; j++) {
+        room9[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 80; j++) {
+        room9[j][i] = new Pixel(j, i);
+      }
+    }
+    ArrayList<Integer> entrances9 = new ArrayList<Integer>();
+    entrances9.add(0);
+    entrances9.add(16);
+    entrances9.add(66);
+    entrances9.add(0);
+    Room Room9 = new Room(9, room9, entrances9);
+
     resetRoom(Room0, terminal);
     currentRoom = Room0;
     Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0, "horizontal");
@@ -483,6 +548,19 @@ public class Tetroid {
 			lastEnteredY = y - 2;
 		}
 	  }
+	  if (currentRoom == Room6 && mainCharacter.getX() == (int)Room6.entrances.get(2)) {
+	        resetRoom(Room9, terminal);
+		x = (int)Room9.entrances.get(0) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room9;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
+		vduck3 = null;
+	  }
 	  if (currentRoom == Room2 && mainCharacter.getX() == (int)Room2.entrances.get(2)) {
 	        resetRoom(Room7, terminal);
 		x = (int)Room7.entrances.get(0) + 2;
@@ -500,6 +578,48 @@ public class Tetroid {
 		x = (int)Room2.entrances.get(2) - 1;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room2;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
+	  }
+	  if (currentRoom == Room7 && mainCharacter.getX() == (int)Room7.entrances.get(2) && ((!crouched && mainCharacter.getY() == (int)Room7.entrances.get(3)-3) || (crouched && mainCharacter.getY() == (int) Room7.entrances.get(3) - 1))) {
+	        resetRoom(Room8, terminal);
+		x = (int)Room8.entrances.get(0);
+		y = (int)Room8.entrances.get(1) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room8;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+	  }
+	  if (currentRoom == Room8 && mainCharacter.getX() == (int)Room8.entrances.get(2) && ((!crouched && mainCharacter.getY() == (int)Room8.entrances.get(3)-3) || (crouched && mainCharacter.getY() == (int) Room8.entrances.get(3) - 1))) {
+	        resetRoom(Room9, terminal);
+		x = (int)Room9.entrances.get(2);
+		y = (int)Room9.entrances.get(3) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room9;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+	  }
+	  if (currentRoom == Room9 && mainCharacter.getX() == (int)Room9.entrances.get(2) && mainCharacter.getY() == (int)Room3.entrances.get(3) + 1) {
+	        resetRoom(Room8, terminal);
+		x = (int)Room8.entrances.get(2) - 2;
+		y = (int)Room8.entrances.get(3) - 5;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room8;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+	  }
+	  if (currentRoom == Room9 && mainCharacter.getX() == (int)Room9.entrances.get(0) + 1) {
+	        resetRoom(Room6, terminal);
+		x = (int)Room6.entrances.get(2) - 1;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room6;
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -664,7 +784,7 @@ public class Tetroid {
 	  }
 	}
           if (myBullet.getExists()) {
-		  if (wait % 100 == 0) {
+		  if (wait % 10000 == 0) {
 			if (goRight) {
 				myBullet.move("right", terminal,false);
 				x = mainCharacter.getX();
@@ -694,7 +814,7 @@ public class Tetroid {
 
 
     if (myGrapple.getExists()){
-      if ( wait % 500 == 0){
+      if ( wait % 50000 == 0){
         myGrapple.move("up", terminal, false);
       //  if (currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() + 1){
       //    mainCharacter.place(myGrapple.getX(), myGrapple.getY() + 1);
@@ -721,7 +841,7 @@ public class Tetroid {
     if (((crouched && mainCharacter.getY() < 18) || (!crouched && mainCharacter.getY() < 16)) && ((!crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4))) || (crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+2))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+2))))
      && drop == true){
       //mainCharacter.fall();
-      if (wait % 125 == 0) {
+      if (wait % 50000 == 0) {
       x = mainCharacter.getX();
       y = mainCharacter.getY() + 1;
       mainCharacter.clear();
