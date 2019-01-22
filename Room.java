@@ -14,11 +14,11 @@ import com.googlecode.lanterna.input.KeyMappingProfile;
 import java.util.ArrayList;
 
 public class Room {
-  public int roomNumber;
-  public Pixel[][] design;
-  public ArrayList entrances;
+  private int roomNumber;
+  private Pixel[][] design;
+  private ArrayList<Integer> entrances;
 
-  public Room(int num, Pixel[][] des, ArrayList entrs) {
+  public Room(int num, Pixel[][] des, ArrayList<Integer> entrs) {
     roomNumber = num;
     design = des;
     entrances = entrs;
@@ -30,5 +30,8 @@ public class Room {
     } else {
       return false;
     }
+  }
+  public ArrayList<Integer> entrances() {
+	  return entrances;
   }
 }
