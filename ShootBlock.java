@@ -4,10 +4,12 @@ public class ShootBlock {
 	private int x;
 	private int y;
 	private boolean exists;
+	private ShootBlock link;
 
-	public ShootBlock(int xgivn, int ygivn, Room owns) {
+	public ShootBlock(int xgivn, int ygivn, Room owns, ShootBlock links) {
 		x = xgivn;
 		y = ygivn;
+		link = links;
 		design = new Pixel[4][2];
 		design[0][0] = new Pixel(x,y);
 		design[0][1] = new Pixel(x, y + 1);
@@ -24,10 +26,17 @@ public class ShootBlock {
 	public boolean isAShootBlock(int xgivn, int ygivn) {
 		return (design[0][0].getX() == xgivn && design[0][0].getY() == ygivn) || (design[1][0].getX() == xgivn && design[1][0].getY() == ygivn) || (design[0][1].getX() == xgivn && design[0][1].getY() == ygivn) || (design[1][1].getX() == xgivn && design[1][1].getY() == ygivn) || (design[2][0].getX() == xgivn && design[2][0].getY() == ygivn) || (design[3][0].getX() == xgivn && design[3][0].getY() == ygivn) || (design[2][1].getX() == xgivn && design[2][1].getY() == ygivn) || (design[3][1].getX() == xgivn && design[3][1].getY() == ygivn);
 	}
+	
+	public ShootBlock linked() {
+		return link;
+	}
+	public void setLink(ShootBlock shoot) {
+		link = shoot;
+	}	
+
 	public boolean exists(){
 		return exists;
 	}
-
 	public void gone() {
 		exists = false;
 	}

@@ -37,7 +37,7 @@ public class Tetroid {
 	 if(room.isAPixel(i, j)) {
      	   putString(i, j, " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
      	 }
-	 if (shoot != null && shoot.isAShootBlock(i, j)) {
+	 if (shoot != null && shoot.exists() && shoot.isAShootBlock(i, j)) {
 	   putString(i, j, " ", terminal, Terminal.Color.RED, Terminal.Color.BLACK);
 	 }
        }
@@ -341,7 +341,10 @@ public class Tetroid {
     entrances9.add(0);
     Room Room9 = new Room(9, room9, entrances9);
 
-    ShootBlock shootBlock0 = new ShootBlock(0, 16, Room0);
+    ShootBlock shootBlock0 = new ShootBlock(0, 16, Room0, null);
+    ShootBlock shootBlock6 = new ShootBlock(76, 16, Room6, null);
+    ShootBlock shootBlock9 = new ShootBlock(0, 16, Room9, shootBlock6);
+    shootBlock6.setLink(shootBlock9);
     resetRoom(Room0, terminal, shootBlock0);
     currentRoom = Room0;
 
@@ -398,7 +401,11 @@ public class Tetroid {
 		x = (int)Room0.entrances().get(2) - 1;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room0;
-		currentShoot = shootBlock0;
+		if (shootBlock0.exists()) {
+			currentShoot = shootBlock0;
+		} else {
+			currentShoot = null;
+		}
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -548,11 +555,15 @@ public class Tetroid {
 		lastEnteredY = y;
 	  }
 	  if (currentRoom == Room5 && mainCharacter.getX() == (int)Room5.entrances().get(2)) {
-	        resetRoom(Room6, terminal, null);
+	        resetRoom(Room6, terminal, shootBlock6);
 		x = (int)Room6.entrances().get(0) + 2;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room6;
-		currentShoot = null;
+		if (shootBlock6.exists()) {
+			currentShoot = shootBlock6;
+		} else {
+			currentShoot = null;
+		}
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -625,12 +636,16 @@ public class Tetroid {
 		lastEnteredY = y;
 	  }
 	  if (currentRoom == Room8 && mainCharacter.getX() == (int)Room8.entrances().get(2) && ((!crouched && mainCharacter.getY() == (int)Room8.entrances().get(3)-3) || (crouched && mainCharacter.getY() == (int) Room8.entrances().get(3) - 1))) {
-	        resetRoom(Room9, terminal, null);
+	        resetRoom(Room9, terminal, shootBlock9);
 		x = (int)Room9.entrances().get(2);
 		y = (int)Room9.entrances().get(3) + 2;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room9;
-		currentShoot = null;
+		if (shootBlock9.exists()) {
+			currentShoot = shootBlock9;
+		} else {
+			currentShoot = null;
+		}
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -647,11 +662,15 @@ public class Tetroid {
 		lastEnteredY = y;
 	  }
 	  if (currentRoom == Room9 && mainCharacter.getX() == (int)Room9.entrances().get(0) + 1) {
-	        resetRoom(Room6, terminal, null);
+	        resetRoom(Room6, terminal, shootBlock6);
 		x = (int)Room6.entrances().get(2) - 1;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room6;
-		currentShoot = null;
+		if (shootBlock6.exists()) {
+			currentShoot = shootBlock6;
+		} else {
+			currentShoot = null;
+		}
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -806,14 +825,14 @@ public class Tetroid {
         myBullet = new Bullet(x-2, y + 2, mainCharacter, terminal,direction,"horizontal");
       }
 	  }
-	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y))))) && (currentShoot == null || ((goRight && !(currentShoot.isAShootBlock(x+1, y) || currentShoot.isAShootBlock(x+1, y+1) )) || (!goRight && !(currentShoot.isAShootBlock(x-2, y+1) || (currentShoot.isAShootBlock(x-2, y))))))){
+	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y))))) && !(currentShoot != null && currentShoot.exists() && ((!goRight && (currentShoot.isAShootBlock(x+1, y) || currentShoot.isAShootBlock(x+1, y+1) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+1) || (currentShoot.isAShootBlock(x-2, y))))))){
 	      x= mainCharacter.getX();
 	      y = mainCharacter.getY();
 		  if(crouched){
 		  mainCharacter.move(key);
       drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
-	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3)))) && (currentShoot == null || ((goRight && !(currentShoot.isAShootBlock(x+1, y+3) || currentShoot.isAShootBlock(x+1, y+2) )) || (!goRight && !(currentShoot.isAShootBlock(x-2, y+3) || (currentShoot.isAShootBlock(x-2, y+2))))))) {
+	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3)))) && !(currentShoot != null && currentShoot.exists() && currentShoot.exists() && ((goRight && (currentShoot.isAShootBlock(x+1, y+3) || currentShoot.isAShootBlock(x+1, y+2) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+3) || (currentShoot.isAShootBlock(x-2, y+2))))))) {
 		  mainCharacter.move(key);
       drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
@@ -835,7 +854,7 @@ public class Tetroid {
 			if(goRight) {
 				direction = 1;
 			}
-		if ((myBullet.getX() <= 0 || myBullet.getX() >= 79) || currentRoom.isAPixel(myBullet.getX()+direction, myBullet.getY() + direction)) {
+		if ((myBullet.getX() <= 0 || myBullet.getX() >= 79) || currentRoom.isAPixel(myBullet.getX()+direction, myBullet.getY())) {
 				myBullet.gone();
 				terminal.moveCursor(myBullet.getX(), myBullet.getY());
 				terminal.putCharacter(' ');
@@ -876,6 +895,19 @@ public class Tetroid {
       }
       wait++;
     }
+
+    if (myBullet.getExists() && currentShoot != null && currentShoot.exists() && (currentShoot.isAShootBlock(myBullet.getX() - 1, myBullet.getY()) || currentShoot.isAShootBlock(myBullet.getX() + 1, myBullet.getY()))) {
+	    myBullet.gone();
+	    terminal.moveCursor(myBullet.getX(), myBullet.getY());
+            terminal.putCharacter(' ');
+	    if(currentShoot.linked() != null) {
+		    currentShoot.linked().gone();
+	    }
+	    currentShoot.gone();
+	    resetRoom(currentRoom, terminal, currentShoot);
+	    mainCharacter.resetRoom(x, y);
+    }
+
 
     if (((crouched && mainCharacter.getY() < 18) || (!crouched && mainCharacter.getY() < 16)) && ((!crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4))) || (crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+2))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+2))))
      && drop == true){
