@@ -187,6 +187,7 @@ public class Tetroid {
     Bullet duckpoop = null; // = new Bullet(50,12,duck1,terminal,0,"vertical");
     Boolean loaded = false;
     Boolean falling = false;
+    Boolean top = false;
     int waitd = 0;
     int lastEnteredX = 40;
     int lastEnteredY = 16;
@@ -342,7 +343,7 @@ public class Tetroid {
             running = false;
           }
 
-    if (key.getCharacter() == 'c' && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){
+    if (key.getCharacter() == 'c' && !top && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){
       crouched = mainCharacter.crouch();
       y = mainCharacter.getY();
     }
@@ -380,6 +381,7 @@ public class Tetroid {
 	      }
 	  x = mainCharacter.getX();
   y = mainCharacter.getY();
+  	  top = false;
 	  }
 	}
           if (myBullet.getExists()) {
@@ -431,6 +433,7 @@ public class Tetroid {
         y = myGrapple.getY();
         mainCharacter.place(x,y);
         drop = false;
+	top = true;
         //terminal.putCharacter(' ');
       }
       wait++;
