@@ -4,7 +4,6 @@ In this game, you move using the left and right arrow keys. Gravity will help yo
 
 Little things to note:
 -Grapple up into a hole at the right place to move to the room above the hole. If it isn't work, move over a little and see if it works there.
--At the moment, the room to the left of the first room you enter, the room to the right of the third room, the rooms to the left of the fifth and sixth rooms, and the room to the right of the seventh room are unavailable. Trying to enter them will result in a crash.
 -bash tetroid.sh to run the program
 
 Map: https://docs.google.com/drawings/d/18IcRpKoM4aBrPLCVbqySDgCrwhyq8Nm6cNnM3kSQbWQ/edit?usp=sharing
