@@ -868,7 +868,31 @@ public class Tetroid {
             vduck3.takeDamage(1);
             //duckpoop.setExists(false);
           }
+          if (myBullet != null && myGrapple != null && hduck1 != null &&
+          hduck1.hit(myBullet.getX(), myBullet.getY()) ){ // Hit the enemy
+          //vduck3.hit(myGrapple.getX(),myGrapple.getY())){
+              myBullet.setExists(false);
+              hduck1.takeDamage(1);
+            }
+            if (myGrapple != null && hduck1 != null &&
+            hduck1.hit(myGrapple.getX(),myGrapple.getY())){
+                myGrapple.setExists(false);
+                hduck1.takeDamage(1);
+                //duckpoop.setExists(false);
+              }
 
+              if (myBullet != null && myGrapple != null && hduck2 != null &&
+              hduck2.hit(myBullet.getX(), myBullet.getY()) ){ // Hit the enemy
+              //vduck3.hit(myGrapple.getX(),myGrapple.getY())){
+                  myBullet.setExists(false);
+                  hduck2.takeDamage(1);
+                }
+                if (myGrapple != null && hduck2 != null &&
+                hduck2.hit(myGrapple.getX(),myGrapple.getY())){
+                    myGrapple.setExists(false);
+                    hduck2.takeDamage(1);
+                    //duckpoop.setExists(false);
+                  }
 
 
         if (vduck3 != null && vduck3.getHealth() <= 0){ // enemy dies
