@@ -267,16 +267,16 @@ public class Tetroid {
     HorizontalShootingEnemy hduck2 = null;
     HorizontalShootingEnemy hduck3 = null;
     CrouchOrb orb = null;
-    Boolean canCrouch = false;
+    boolean canCrouch = false;
     Gun pistel = null;
-    Boolean canShoot = false;
+    boolean canShoot = false;
     GrappleGun grappler = null;
-    Boolean canGrapple = false;
+    boolean canGrapple = false;
 
     Bullet duckpoop = null;//new Bullet(50,12,duck1,terminal,0,"vertical");
-    Boolean loaded = false;
-    Boolean falling = false;
-    Boolean top = false;
+    boolean loaded = false;
+    boolean falling = false;
+    boolean top = false;
     int waitd = 0;
     int lastEnteredX = 40;
     int lastEnteredY = 16;
