@@ -167,7 +167,7 @@ public class Tetroid {
     entrances3.add(44);
     entrances3.add(0);
     Room Room3 = new Room(3, room3, entrances3);
-    
+
     Pixel[][] room4 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
@@ -194,7 +194,7 @@ public class Tetroid {
     entrances4.add(19);
     entrances4.add(19);
     Room Room4 = new Room (4, room4, entrances4);
-    
+
     Pixel[][] room5 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 10; j++) {
@@ -266,7 +266,14 @@ public class Tetroid {
     HorizontalShootingEnemy hduck1 = null;
     HorizontalShootingEnemy hduck2 = null;
     HorizontalShootingEnemy hduck3 = null;
-    Bullet duckpoop = null; // = new Bullet(50,12,duck1,terminal,0,"vertical");
+    CrouchOrb orb = null;
+    Boolean canCrouch = false;
+    Gun pistel = null;
+    Boolean canShoot = false;
+    GrappleGun grappler = null;
+    Boolean canGrapple = false;
+
+    Bullet duckpoop = null;//new Bullet(50,12,duck1,terminal,0,"vertical");
     Boolean loaded = false;
     Boolean falling = false;
     Boolean top = false;
@@ -461,6 +468,7 @@ public class Tetroid {
           hduck1 = null; //new HorizontalShootingEnemy(30,14,3,terminal);
           hduck2 = null;
           hduck3 = null;
+          orb = new CrouchOrb(43, 16, terminal);
           loaded = true;
 	}
 	if (currentRoom != Room1) {
@@ -472,8 +480,34 @@ public class Tetroid {
           vduck3 = null;
           hduck1 = null;
           hduck3 = null;
-          vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
-          hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+          pistel = new Gun(45,16,terminal);
+          grappler = new GrappleGun(43,16,terminal);
+          loaded = true;
+          //vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
+          //hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+        }
+        if (grappler != null){
+          if (mainCharacter.touch(grappler.getX(),grappler.getY())){
+            canGrapple = true;
+            grappler.clear();
+            grappler = null;
+          }
+        }
+
+        if (pistel != null){
+          if (mainCharacter.touch(pistel.getX(),pistel.getY())){
+            canShoot = true;
+            pistel.clear();
+            pistel = null;
+          }
+        }
+
+        if (orb != null){
+          if (mainCharacter.touch(orb.getX(),orb.getY())){
+            canCrouch = true;
+            orb.clear();
+            orb = null;
+          }
         }
         if (duckpoop != null && duckpoop.getExists()){
           if (waitd % 250 == 0){
@@ -523,7 +557,7 @@ public class Tetroid {
 
         if (key != null){
 
-        if (key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false && !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && falling == false){
+        if (canGrapple == true && drop == true && key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false){
           myGrapple = new Grapple(x,y-1,mainCharacter,terminal,-1,"vertical");
           myGrapple.setExists(true);
           //terminal.putCharacter('\u2038');
@@ -533,7 +567,7 @@ public class Tetroid {
             running = false;
           }
 
-    if (key.getCharacter() == 'c' && !top && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){
+    if (canCrouch == true && key.getCharacter() == 'c' && !top && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){
       crouched = mainCharacter.crouch();
       y = mainCharacter.getY();
     }
@@ -547,7 +581,7 @@ public class Tetroid {
 		}
 	  }
 
-	  if (key.getCharacter() == 'z' && !myBullet.getExists() && !myGrapple.getExists() && mainCharacter.crouched() == false) {
+	  if (key.getCharacter() == 'z' && !myBullet.getExists() && !myGrapple.getExists() && mainCharacter.crouched() == false && canShoot == true) {
 		  int direction = -1;
 		  if (goRight) {
 			  direction = 1;
