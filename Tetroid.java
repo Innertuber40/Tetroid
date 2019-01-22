@@ -372,11 +372,11 @@ public class Tetroid {
 	      y = mainCharacter.getY();
 		  if(crouched){
 		  mainCharacter.move(key);
-      drop = currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() -1);
+      drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
 	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) {
 		  mainCharacter.move(key);
-      drop = currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() -1);
+      drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
 	  x = mainCharacter.getX();
   y = mainCharacter.getY();
