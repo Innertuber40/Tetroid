@@ -85,6 +85,7 @@ public class Player extends Entity{
     terminal.putCharacter(' ');
     terminal.moveCursor(x-1,y+1);
     terminal.putCharacter(' ');
+    if (!crouches) {
     terminal.moveCursor(x,y+2);
     terminal.putCharacter(' ');
     terminal.moveCursor(x-1,y+2);
@@ -93,6 +94,7 @@ public class Player extends Entity{
     terminal.putCharacter(' ');
     terminal.moveCursor(x-1,y+3);
     terminal.putCharacter(' ');
+    }
   }
   public void place(int newX, int newY){
     x = newX;
