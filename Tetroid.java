@@ -471,10 +471,6 @@ public class Tetroid {
           orb = new CrouchOrb(43, 16, terminal);
           loaded = true;
 	}
-	if (currentRoom != Room1) {
-		vduck3 = null;
-		duckpoop = null;
-	}
         if (currentRoom == Room0 && loaded == false){
           vduck2 = null;
           vduck3 = null;
@@ -488,8 +484,13 @@ public class Tetroid {
         }
         if (currentRoom == Room2 && loaded == false){
           vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
-          duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
+          duckpoop = new Bullet(50,12,vduck3,terminal,0,"vertical");
+	  loaded = true;
         }
+	if (currentRoom != Room2) {
+		vduck3 = null;
+		duckpoop = null;
+	}
         if (currentRoom == Room6 && loaded == false){
           grappler = new GrappleGun(43,16,terminal);
         }
@@ -517,7 +518,7 @@ public class Tetroid {
           }
         }
         if (duckpoop != null && duckpoop.getExists()){
-          if (wait % 250 == 0){
+	  if (waitd % 250 == 0){
             if (duckpoop.getX() == mainCharacter.getX() && duckpoop.getY() == mainCharacter.getY()){
               mainCharacter.takeDamage(1);
             }
