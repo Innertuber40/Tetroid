@@ -240,32 +240,27 @@ public class Tetroid {
 		if (crouched) {
 			lastEnteredY = y - 2;
 		}
+		vduck3 = null;
 	  }
 	  if (currentRoom == Room2 && mainCharacter.getX() - 1 == (int)Room2.entrances.get(4) && ((!crouched && mainCharacter.getY() == (int)Room2.entrances.get(5)-3) || (crouched && mainCharacter.getY() == (int) Room2.entrances.get(5) - 1))) {
 	        resetRoom(Room3, terminal);
-		x = (int)Room3.entrances.get(2) + 1;
+		x = (int)Room3.entrances.get(2);
 		y = (int)Room3.entrances.get(3) + 2;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room3;
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
-		if (crouched) {
-			lastEnteredY = y - 2;
-		}
 	  }
-	  if (currentRoom == Room3 && mainCharacter.getX() - 1 == (int)Room3.entrances.get(2) && mainCharacter.getY() == (int)Room3.entrances.get(3) + 1) {
+	  if (currentRoom == Room3 && mainCharacter.getX() == (int)Room3.entrances.get(2) && mainCharacter.getY() == (int)Room3.entrances.get(3) + 1) {
 	        resetRoom(Room2, terminal);
-		x = (int)Room2.entrances.get(4);
-		y = (int)Room3.entrances.get(5) - 5;
+		x = (int)Room2.entrances.get(4) - 2;
+		y = (int)Room2.entrances.get(5) - 5;
 		mainCharacter.resetRoom(x, y);
-		currentRoom = Room3;
+		currentRoom = Room2;
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
-		if (crouched) {
-			lastEnteredY = y - 2;
-		}
 	  }
         if (currentRoom == Room1 && loaded == false){
           vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
@@ -276,6 +271,10 @@ public class Tetroid {
           hduck2 = null;
           hduck3 = null;
           loaded = true;
+	}
+	if (currentRoom != Room1) {
+		vduck3 = null;
+		duckpoop = null;
 	}
         if (currentRoom == Room0 && loaded == false){
           vduck2 = null;
@@ -421,8 +420,10 @@ public class Tetroid {
         //}
       if (myGrapple.getY() == 0)
 	      myGrapple.gone();
+      	      terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
+	      terminal.putCharacter(' ');
       }
-      if ((currentRoom.entrances.contains(myGrapple.getX()) && currentRoom.entrances.contains(myGrapple.getY() - 1)) || currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() - 1)){
+      else if ((currentRoom.entrances.contains(myGrapple.getX()) && currentRoom.entrances.contains(myGrapple.getY() - 1)) || currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() - 1)){
         myGrapple.gone();
         mainCharacter.clear();
         terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
@@ -438,7 +439,6 @@ public class Tetroid {
     if (((crouched && mainCharacter.getY() < 18) || (!crouched && mainCharacter.getY() < 16)) && ((!crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4))) || (crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+2))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+2))))
      && drop == true){
       //mainCharacter.fall();
-      crouched = false;
       if (wait % 125 == 0) {
       x = mainCharacter.getX();
       y = mainCharacter.getY() + 1;
