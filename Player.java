@@ -329,6 +329,22 @@ public class Player extends Entity{
     y = prevY;
     }
   }*/
+  public Boolean touch(int newX, int newY){
+    if ((x == newX && y == newY) ||
+    (x - 1 == newX && y == newY) ||
+    (x == newX && y + 1 == newY) ||
+    (x - 1 == newX && y + 1 == newY) ||
+    (x == newX && y + 2 == newY) ||
+    (x - 1 == newX && y + 2 == newY) ||
+    (x == newX && y + 3 == newY) ||
+    (x - 1 == newX && y + 3 == newY)
+    ){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
   public void resetRoom(int xgvn, int ygvn){
     x = xgvn;

@@ -177,6 +177,8 @@ public class Tetroid {
     HorizontalShootingEnemy hduck1 = null;
     HorizontalShootingEnemy hduck2 = null;
     HorizontalShootingEnemy hduck3 = null;
+    CrouchOrb orb = null;
+    Boolean canCrouch = false;
     Bullet duckpoop = null; // = new Bullet(50,12,duck1,terminal,0,"vertical");
     Boolean loaded = false;
     while(running){
@@ -196,8 +198,17 @@ public class Tetroid {
           vduck3 = null;
           hduck1 = null;
           hduck3 = null;
-          vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
-          hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+          orb = new CrouchOrb(47, 14, terminal);
+          loaded = true;
+          //vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
+          //hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+        }
+        if (orb != null){
+          if (mainCharacter.touch(orb.getX(),orb.getY())){
+            canCrouch = true;
+            orb.clear();
+            orb = null;
+          }
         }
         if (duckpoop != null && duckpoop.getExists()){
           if (wait % 5000000 == 0){
@@ -252,7 +263,7 @@ public class Tetroid {
             running = false;
           }
 
-    if (key.getCharacter() == 'c'){
+    if (key.getCharacter() == 'c' && canCrouch == true){
       crouched = mainCharacter.crouch();
       y = mainCharacter.getY();
     }
