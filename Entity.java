@@ -14,4 +14,6 @@ public class Entity{
   public void setHealth(int h){
     health = h;
   }
+
+  
 }
