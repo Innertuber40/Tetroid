@@ -76,7 +76,7 @@ public class Tetroid {
       }
     }
     //room0[45][17] = new Pixel(45, 17);  //for testing edge detection
-    ArrayList entrances0 = new ArrayList();
+    ArrayList<Integer> entrances0 = new ArrayList<Integer>();
     entrances0.add(0);
     entrances0.add(16);
     entrances0.add(79);
@@ -99,7 +99,7 @@ public class Tetroid {
         room1[j][i] = new Pixel(j, i);
       }
     }
-    ArrayList entrances1 = new ArrayList();
+    ArrayList<Integer> entrances1 = new ArrayList<Integer>();
     entrances1.add(0);
     entrances1.add(16);
     entrances1.add(79);
@@ -127,7 +127,7 @@ public class Tetroid {
         room2[j][i] = new Pixel(j, i);
       }
     }
-    ArrayList entrances2 = new ArrayList();
+    ArrayList<Integer> entrances2 = new ArrayList<Integer>();
     entrances2.add(0);
     entrances2.add(16);
     entrances2.add(79);
@@ -159,7 +159,7 @@ public class Tetroid {
         room3[j][i] = new Pixel(j, i);
       }
     }
-    ArrayList entrances3 = new ArrayList();
+    ArrayList<Integer> entrances3 = new ArrayList<Integer>();
     entrances3.add(0);
     entrances3.add(16);
     entrances3.add(36);
@@ -184,7 +184,7 @@ public class Tetroid {
         room4[j][i] = new Pixel(j, i);
       }
     }
-    ArrayList entrances4 = new ArrayList();
+    ArrayList<Integer> entrances4 = new ArrayList<Integer>();
     entrances4.add(0);
     entrances4.add(16);
     entrances4.add(79);
@@ -211,7 +211,7 @@ public class Tetroid {
         room5[j][i] = new Pixel(j, i);
       }
     }
-    ArrayList entrances5 = new ArrayList();
+    ArrayList<Integer> entrances5 = new ArrayList<Integer>();
     entrances5.add(0);
     entrances5.add(16);
     entrances5.add(79);
@@ -243,7 +243,7 @@ public class Tetroid {
          room6[j][i] = new Pixel(j, i);
        }
     }
-    ArrayList entrances6 = new ArrayList();
+    ArrayList<Integer> entrances6 = new ArrayList<Integer>();
     entrances6.add(0);
     entrances6.add(16);
     entrances6.add(79);
