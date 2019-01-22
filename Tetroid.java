@@ -825,14 +825,14 @@ public class Tetroid {
         myBullet = new Bullet(x-2, y + 2, mainCharacter, terminal,direction,"horizontal");
       }
 	  }
-	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y))))) && !(currentShoot != null && currentShoot.exists() && ((!goRight && (currentShoot.isAShootBlock(x+1, y) || currentShoot.isAShootBlock(x+1, y+1) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+1) || (currentShoot.isAShootBlock(x-2, y))))))){
+	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y))))) && !(currentShoot != null && currentShoot.exists() && ((goRight && (currentShoot.isAShootBlock(x+1, y) || currentShoot.isAShootBlock(x+1, y+1) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+1) || (currentShoot.isAShootBlock(x-2, y))))))){
 	      x= mainCharacter.getX();
 	      y = mainCharacter.getY();
 		  if(crouched){
 		  mainCharacter.move(key);
       drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
-	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3)))) && !(currentShoot != null && currentShoot.exists() && currentShoot.exists() && ((goRight && (currentShoot.isAShootBlock(x+1, y+3) || currentShoot.isAShootBlock(x+1, y+2) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+3) || (currentShoot.isAShootBlock(x-2, y+2))))))) {
+	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) {
 		  mainCharacter.move(key);
       drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
