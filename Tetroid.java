@@ -851,7 +851,7 @@ public class Tetroid {
 
         if (key != null){
 
-        if (canGrapple == true && drop == true && key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false){
+        if (canGrapple == true && drop == true && key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false && !falling){
           myGrapple = new Grapple(x,y-1,mainCharacter,terminal,-1,"vertical");
           myGrapple.setExists(true);
           //terminal.putCharacter('\u2038');
@@ -986,6 +986,7 @@ public class Tetroid {
     }
     if (currentRoom == RoomWin && wait %50000 == 0) {
 	    putString(28, 10, "You Win! Isn't this satisfying?", terminal, Terminal.Color.RED, Terminal.Color.BLUE);
+	    putString(36, 12, "Press esc to quit", terminal, Terminal.Color.RED, Terminal.Color.BLUE);
     wait++;
     }
 	//if ((crouched && currentRoom.isAPixel(x, y+2)) || (!crouched && currentRoom.isAPixel(x, y+4))){
