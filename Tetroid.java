@@ -384,10 +384,10 @@ public class Tetroid {
 		  if (goRight) {
 			  direction = 1;
 
-		  myBullet = new Bullet(x+1, y, mainCharacter, terminal, direction,"horizontal");
+		  myBullet = new Bullet(x+1, y + 2, mainCharacter, terminal, direction,"horizontal");
     }
       else{
-        myBullet = new Bullet(x-2, y, mainCharacter, terminal,direction,"horizontal");
+        myBullet = new Bullet(x-2, y + 2, mainCharacter, terminal,direction,"horizontal");
       }
 	  }
 	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y)))))) {
