@@ -249,6 +249,29 @@ public class Tetroid {
     entrances6.add(79);
     entrances6.add(16);
     Room Room6 = new Room(6, room6, entrances6);
+    
+    Pixel[][] room7 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 80; j++) {
+        room7[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 20; i++) {
+      for (int j = 76; j < 80; j++) {
+        room7[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 65; j++) {
+        room7[j][i] = new Pixel(j, i);
+      }
+    }
+    ArrayList<Integer> entrances7 = new ArrayList<Integer>();
+    entrances7.add(0);
+    entrances7.add(16);
+    entrances7.add(66);
+    entrances7.add(19);
+    Room Room7 = new Room(7, room7, entrances7);
 
     resetRoom(Room0, terminal);
     currentRoom = Room0;
@@ -453,6 +476,30 @@ public class Tetroid {
 		x = (int)Room5.entrances.get(2) - 1;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room5;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
+	  }
+	  if (currentRoom == Room2 && mainCharacter.getX() == (int)Room2.entrances.get(2)) {
+	        resetRoom(Room7, terminal);
+		x = (int)Room7.entrances.get(0) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room7;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
+	  }
+	  if (currentRoom == Room7 && mainCharacter.getX() == (int)Room7.entrances.get(0) + 1) {
+	        resetRoom(Room2, terminal);
+		x = (int)Room2.entrances.get(2) - 1;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room2;
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
