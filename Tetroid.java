@@ -14,7 +14,7 @@ import com.googlecode.lanterna.input.KeyMappingProfile;
 import java.util.ArrayList;
 
 public class Tetroid {
-  public static void putString(int r, int c, String s, Terminal t, Terminal.Color fore, Terminal.Color back ){
+  public static void putString(int r, int c, String s, Terminal t, Terminal.Color fore, Terminal.Color back ){ // Mr. K's putString code, used because it doesn't involve the "style" argument
     t.moveCursor(r,c);
     t.applyBackgroundColor(fore);
     t.applyForegroundColor(Terminal.Color.BLACK);
@@ -27,17 +27,17 @@ public class Tetroid {
   }
 
   public static void resetRoom(Room room, Terminal terminal, ShootBlock shoot) {
-     for(int i = 0; i < 80; i++) {
-	     for(int j = 0; j < 20; j++) {
+     for(int i = 0; i < 80; i++) { // reboot the terminal at the next room; not using screens gives it character, like Metroid
+	     for(int j = 0; j < 20; j++) { // reset
 		     putString(i, j, " ", terminal, Terminal.Color.BLACK, Terminal.Color.BLACK);
 	     }
      }
-     for(int i = 0; i < 80; i++) {
+     for(int i = 0; i < 80; i++) { // put down the room
        for(int j = 0; j < 20; j++) {
 	 if(room.isAPixel(i, j)) {
      	   putString(i, j, " ", terminal, Terminal.Color.GREEN, Terminal.Color.BLACK);
      	 }
-	 if (shoot != null && shoot.exists() && shoot.isAShootBlock(i, j)) {
+	 if (shoot != null && shoot.exists() && shoot.isAShootBlock(i, j)) { // put down the ShootBlock
 	   putString(i, j, " ", terminal, Terminal.Color.RED, Terminal.Color.BLACK);
 	 }
        }
@@ -45,24 +45,24 @@ public class Tetroid {
 }
 
   public static void main(String[] args) {
-    int x = 40;
+    int x = 40; // where the character is now
 		int y = 16;
-		Room currentRoom;
-    boolean drop = true;
-	Key lastKeyPressed = new Key('o');
+		Room currentRoom; // which room we are in
+    boolean drop = true; // whether you should be able to fall
+	Key lastKeyPressed = new Key('o'); // just a random initialization so we don't get nullpointer errors
 
 		Terminal terminal = TerminalFacade.createTextTerminal();
 		terminal.enterPrivateMode();
 
     TerminalSize size = terminal.getTerminalSize();
-    terminal.setCursorVisible(false);
-    Player mainCharacter = new Player(terminal, 42, 14);
-    boolean running = true;
+    terminal.setCursorVisible(false); // It would be annoying if this weren't false
+    Player mainCharacter = new Player(terminal, 42, 14); // makes the main character
+    boolean running = true; // whether you are playing the game
     terminal.setCursorVisible(false);
     long tStart = System.currentTimeMillis();
     long lastSecond = 0;
 
-    Pixel[][] room0 = new Pixel[80][20];
+    Pixel[][] room0 = new Pixel[80][20]; // Fills out the array that will determine the design of Room0; applies for all future rooms
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
         room0[j][i] = new Pixel(j, i);
@@ -79,12 +79,12 @@ public class Tetroid {
       }
     }
     //room0[45][17] = new Pixel(45, 17);  //for testing edge detection
-    ArrayList<Integer> entrances0 = new ArrayList<Integer>();
+    ArrayList<Integer> entrances0 = new ArrayList<Integer>(); // entrances to the room, with x and y coordinates entered
     entrances0.add(0);
     entrances0.add(16);
     entrances0.add(79);
     entrances0.add(16);
-    Room Room0 = new Room(0, room0, entrances0);
+    Room Room0 = new Room(0, room0, entrances0); // create the room
 
     Pixel[][] room1 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
@@ -351,7 +351,7 @@ public class Tetroid {
     entrances9.add(0);
     Room Room9 = new Room(9, room9, entrances9);
 
-    Pixel[][] roomWin = new Pixel[80][20];
+    Pixel[][] roomWin = new Pixel[80][20]; // the final room
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
         roomWin[j][i] = new Pixel(j, i);
@@ -377,28 +377,28 @@ public class Tetroid {
     entrancesWin.add(16);
     Room RoomWin = new Room(10, roomWin, entrancesWin);
 
-    ShootBlock shootBlock0 = new ShootBlock(0, 16, Room0, null);
+    ShootBlock shootBlock0 = new ShootBlock(0, 16, Room0, null); // the ShootBlocks are initialized here as extant, links are declared
     ShootBlock shootBlock6 = new ShootBlock(76, 16, Room6, null);
     ShootBlock shootBlock9 = new ShootBlock(0, 16, Room9, shootBlock6);
     shootBlock6.setLink(shootBlock9);
-    resetRoom(Room0, terminal, shootBlock0);
+    resetRoom(Room0, terminal, shootBlock0); // bring us to the first room
     currentRoom = Room0;
 
-    Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0, "horizontal");
+    Bullet myBullet = new Bullet(x, y, mainCharacter, terminal, 0, "horizontal"); // the bullet we will be using
     myBullet.gone();
-    int wait = 0;
-    boolean goRight = false;
-    boolean crouched = false;
+    int wait = 0; // a counter to make actions run slower
+    boolean goRight = false; // which way you are facing
+    boolean crouched = false; // whether you are crouched
 
-    Grapple myGrapple = new Grapple(x,y,mainCharacter,terminal,-1,"vertical");
+    Grapple myGrapple = new Grapple(x,y,mainCharacter,terminal,-1,"vertical"); // initialize the grappling hook
     myGrapple.gone();
-    VerticalShootingEnemy vduck1 = null;
+    VerticalShootingEnemy vduck1 = null; // enemies
     VerticalShootingEnemy vduck2 = null;
     VerticalShootingEnemy vduck3 = null;
     HorizontalShootingEnemy hduck1 = null;
     HorizontalShootingEnemy hduck2 = null;
     HorizontalShootingEnemy hduck3 = null;
-    CrouchOrb orb = null;
+    CrouchOrb orb = null; // items and what they enable
     boolean canCrouch = false;
     Gun pistel = null;
     boolean canShoot = false;
@@ -409,18 +409,18 @@ public class Tetroid {
     Bullet duckpoop2 = null;
     Bullet duckpoop = null;//new Bullet(50,12,duck1,terminal,0,"vertical");
     boolean loaded = false;
-    boolean falling = false;
-    boolean top = false;
-    boolean grapplerLoaded = false;
+    boolean falling = false; // whether you are falling now
+    boolean top = false; // whether you are at the top of the screen after grappling
+    boolean grapplerLoaded = false; // whether the items should load again when reentering
     boolean pistelLoaded = false;
     boolean orbLoaded = false;
-    int waitd = 0;
-    int lastEnteredX = 40;
+    int waitd = 0; // enemy wait timer
+    int lastEnteredX = 40; // where to go when you die
     int lastEnteredY = 16;
-    ShootBlock currentShoot = shootBlock0;
+    ShootBlock currentShoot = shootBlock0; // the ShootBlock in the current room
     while(running){
       	Key key = terminal.readInput();
-	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances().get(2)) {
+	  if (currentRoom == Room0 && mainCharacter.getX() == (int)Room0.entrances().get(2)) { // entrance transitions
 	        resetRoom(Room1, terminal, null);
 		x = (int)Room1.entrances().get(0) + 2;
 		mainCharacter.resetRoom(x, y);
@@ -429,7 +429,7 @@ public class Tetroid {
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
-		if (crouched) {
+		if (crouched) { // if you are crouched when entering, you should respawn standing after you die
 			lastEnteredY = y - 2;
 		}
 	  }
@@ -476,7 +476,7 @@ public class Tetroid {
 		if (crouched) {
 			lastEnteredY = y - 2;
 		}
-		vduck3 = null;
+		vduck3 = null; // the duck should dissapear when exiting
 	  }
 	  if (currentRoom == Room2 && mainCharacter.getX() - 1 == (int)Room2.entrances().get(4) && ((!crouched && mainCharacter.getY() == (int)Room2.entrances().get(5)-3) || (crouched && mainCharacter.getY() == (int) Room2.entrances().get(5) - 1))) {
 	        resetRoom(Room3, terminal, null);
@@ -751,7 +751,7 @@ public class Tetroid {
 			lastEnteredY = y - 2;
 		}
 	  }
-        if (currentRoom == Room1 && loaded == false){
+        if (currentRoom == Room1 && loaded == false){ // load in the orb
           //vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
           //duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
           vduck1 = null;
@@ -776,12 +776,12 @@ public class Tetroid {
           //vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
           //hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
         }
-        if (currentRoom == Room2 && loaded == false){
+        if (currentRoom == Room2 && loaded == false){ // load in the first enemy
           vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
           duckpoop = new Bullet(50,12,vduck3,terminal,0,"vertical");
 	  loaded = true;
         }
-	if (currentRoom != Room2) {
+	if (currentRoom != Room2) { // get rid of the first enemy when exiting the room
 		vduck3 = null;
 		duckpoop = null;
 	}
@@ -800,7 +800,7 @@ public class Tetroid {
 	if (currentRoom == Room9 && pistelLoaded == false) {
 		pistel = new Gun(40,16,terminal);
 	}
-        if (grappler != null){
+        if (grappler != null){ // pick up items
           if (mainCharacter.touch(grappler.getX(),grappler.getY())){
             canGrapple = true;
             grappler.clear();
@@ -826,7 +826,7 @@ public class Tetroid {
 	    orbLoaded = true;
           }
         }
-        if (duckpoop != null && duckpoop.getExists()){
+        if (duckpoop != null && duckpoop.getExists()){ // shoot the enemy bullet
 	  if (waitd % 250 == 0){
             if (duckpoop.getX() == mainCharacter.getX() && duckpoop.getY() == mainCharacter.getY()){
               mainCharacter.takeDamage(1);
@@ -855,7 +855,7 @@ public class Tetroid {
         }
 
       if (myBullet != null && myGrapple != null && vduck3 != null &&
-      vduck3.hit(myBullet.getX(), myBullet.getY()) ){ //||
+      vduck3.hit(myBullet.getX(), myBullet.getY()) ){ // Hit the enemy
       //vduck3.hit(myGrapple.getX(),myGrapple.getY())){
           myBullet.setExists(false);
           vduck3.takeDamage(1);
@@ -869,13 +869,13 @@ public class Tetroid {
 
 
 
-        if (vduck3 != null && vduck3.getHealth() <= 0){
+        if (vduck3 != null && vduck3.getHealth() <= 0){ // enemy dies
           vduck3.clear();
           vduck3 = null;
           duckpoop = null;
         }
 
-        if (mainCharacter.getAlive() == false){
+        if (mainCharacter.getAlive() == false){ // kill the character; respawn
 	  if (crouched) {
 		mainCharacter.crouch();
 		crouched = false;
@@ -886,24 +886,24 @@ public class Tetroid {
           mainCharacter.setAlive(true);
         }
 
-        if (key != null){
+        if (key != null){ // what to do when moving
 
-        if (canGrapple == true && drop == true && key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false && !falling){
+        if (canGrapple == true && drop == true && key.getCharacter() == 'x' && !myGrapple.getExists() && !myBullet.getExists() && mainCharacter.crouched() == false && !falling){ // use the grappling hook
           myGrapple = new Grapple(x,y-1,mainCharacter,terminal,-1,"vertical");
           myGrapple.setExists(true);
           //terminal.putCharacter('\u2038');
         }
-	  if (key.getKind() == Key.Kind.Escape) {
+	  if (key.getKind() == Key.Kind.Escape) { // exit the program
             terminal.exitPrivateMode();
             running = false;
           }
 
-    if (canCrouch == true && key.getCharacter() == 'c' && !top && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){
+    if (canCrouch == true && key.getCharacter() == 'c' && !top && (!crouched || (!currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() - 1) && !currentRoom.isAPixel(mainCharacter.getX() - 1, mainCharacter.getY() - 1)))){ // crouch
       crouched = mainCharacter.crouch();
       y = mainCharacter.getY();
     }
 
-	  if (!myBullet.getExists() && !myGrapple.getExists()){
+	  if (!myBullet.getExists() && !myGrapple.getExists()){ // sets your direction
 	  	if (key.getKind() == Key.Kind.ArrowRight) {
 			  goRight = true;
 	  	}
@@ -912,7 +912,7 @@ public class Tetroid {
 		}
 	  }
 
-	  if (key.getCharacter() == 'z' && !myBullet.getExists() && !myGrapple.getExists() && mainCharacter.crouched() == false && canShoot == true) {
+	  if (key.getCharacter() == 'z' && !myBullet.getExists() && !myGrapple.getExists() && mainCharacter.crouched() == false && canShoot == true) { // shoot
 		  int direction = -1;
 		  if (goRight) {
 			  direction = 1;
@@ -923,23 +923,23 @@ public class Tetroid {
         myBullet = new Bullet(x-2, y + 2, mainCharacter, terminal,direction,"horizontal");
       }
 	  }
-	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y))))) && !(currentShoot != null && currentShoot.exists() && ((goRight && (currentShoot.isAShootBlock(x+1, y) || currentShoot.isAShootBlock(x+1, y+1) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+1) || (currentShoot.isAShootBlock(x-2, y))))))){
+	  if (!myBullet.getExists() && !myGrapple.getExists() && !falling && ((goRight && !(currentRoom.isAPixel(x+1, y) || currentRoom.isAPixel(x+1, y+1) )) || (!goRight && !(currentRoom.isAPixel(x-2, y+1) || (currentRoom.isAPixel(x-2, y))))) && !(currentShoot != null && currentShoot.exists() && ((goRight && (currentShoot.isAShootBlock(x+1, y) || currentShoot.isAShootBlock(x+1, y+1) )) || (!goRight && (currentShoot.isAShootBlock(x-2, y+1) || (currentShoot.isAShootBlock(x-2, y))))))){ // movement when crouched; only if there aren't things blocking
 	      x= mainCharacter.getX();
 	      y = mainCharacter.getY();
 		  if(crouched){
 		  mainCharacter.move(key);
       drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
 	      }
-	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) {
+	      else if (((goRight && !(currentRoom.isAPixel(x+1, y+2) || currentRoom.isAPixel(x+1, y+3))) || (!goRight && !(currentRoom.isAPixel(x-2, y+2) || currentRoom.isAPixel(x-2, y+3))))) { // movement when not crouched
 		  mainCharacter.move(key);
-      drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1);
+      drop = !currentRoom.isAPixel(mainCharacter.getX(), mainCharacter.getY() + 1); // can't drop if on the ground
 	      }
 	  x = mainCharacter.getX();
   y = mainCharacter.getY();
   	  top = false;
 	  }
 	}
-          if (myBullet.getExists()) {
+          if (myBullet.getExists()) { // the bullet moves
 		  if (wait % 10000 == 0) {
 			if (goRight) {
 				myBullet.move("right", terminal,false);
@@ -952,7 +952,7 @@ public class Tetroid {
 			if(goRight) {
 				direction = 1;
 			}
-		if ((myBullet.getX() <= 0 || myBullet.getX() >= 79) || currentRoom.isAPixel(myBullet.getX()+direction, myBullet.getY())) {
+		if ((myBullet.getX() <= 0 || myBullet.getX() >= 79) || currentRoom.isAPixel(myBullet.getX()+direction, myBullet.getY())) { // where it should stop
 				myBullet.gone();
 				terminal.moveCursor(myBullet.getX(), myBullet.getY());
 				terminal.putCharacter(' ');
@@ -969,18 +969,18 @@ public class Tetroid {
     }*/
 
 
-    if (myGrapple.getExists()){
+    if (myGrapple.getExists()){ // the grapple moves
       if ( wait % 50000 == 0){
         myGrapple.move("up", terminal, false);
       //  if (currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() + 1){
       //    mainCharacter.place(myGrapple.getX(), myGrapple.getY() + 1);
         //}
-      if (myGrapple.getY() == 0)
+      if (myGrapple.getY() == 0) // dissapear if it goes into an empty hole
 	      myGrapple.gone();
       	      terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
 	      terminal.putCharacter(' ');
       }
-      else if ((currentRoom.entrances().contains(myGrapple.getX()) && myGrapple.getY() == 1) || currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() - 1)){
+      else if ((currentRoom.entrances().contains(myGrapple.getX()) && myGrapple.getY() == 1) || currentRoom.isAPixel(myGrapple.getX(), myGrapple.getY() - 1)){ // when the grapple hits something
         myGrapple.gone();
         mainCharacter.clear();
         terminal.moveCursor(myGrapple.getX(), myGrapple.getY());
@@ -994,7 +994,7 @@ public class Tetroid {
       wait++;
     }
 
-    if (myBullet.getExists() && currentShoot != null && currentShoot.exists() && (currentShoot.isAShootBlock(myBullet.getX() - 1, myBullet.getY()) || currentShoot.isAShootBlock(myBullet.getX() + 1, myBullet.getY()))) {
+    if (myBullet.getExists() && currentShoot != null && currentShoot.exists() && (currentShoot.isAShootBlock(myBullet.getX() - 1, myBullet.getY()) || currentShoot.isAShootBlock(myBullet.getX() + 1, myBullet.getY()))) { // kill shoot blocks
 	    myBullet.gone();
 	    terminal.moveCursor(myBullet.getX(), myBullet.getY());
             terminal.putCharacter(' ');
@@ -1008,7 +1008,7 @@ public class Tetroid {
 
 
     if (((crouched && mainCharacter.getY() < 18) || (!crouched && mainCharacter.getY() < 16)) && ((!crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+4))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+4))) || (crouched && !(currentRoom.isAPixel(mainCharacter.getX(),mainCharacter.getY()+2))&& !(currentRoom.isAPixel(mainCharacter.getX() -1,mainCharacter.getY()+2))))
-     && drop == true){
+     && drop == true){ // falling
       //mainCharacter.fall();
       if (wait % 50000 == 0) {
       x = mainCharacter.getX();
@@ -1021,7 +1021,7 @@ public class Tetroid {
     } else {
 	    falling = false;
     }
-    if (currentRoom == RoomWin && wait %50000 == 0) {
+    if (currentRoom == RoomWin && wait %50000 == 0) { // win screen
 	    putString(28, 10, "You Win! Isn't this satisfying?", terminal, Terminal.Color.RED, Terminal.Color.BLUE);
 	    putString(36, 12, "Press esc to quit", terminal, Terminal.Color.RED, Terminal.Color.BLUE);
     wait++;
