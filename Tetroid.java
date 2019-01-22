@@ -221,7 +221,7 @@ public class Tetroid {
     entrances5.add(19);
     entrances5.add(0);
     Room Room5 = new Room(5, room5, entrances5);
-    
+
     Pixel[][] room6 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
@@ -461,8 +461,8 @@ public class Tetroid {
 		}
 	  }
         if (currentRoom == Room1 && loaded == false){
-          vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
-          duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
+          //vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
+          //duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
           vduck1 = null;
           vduck2 = null;
           hduck1 = null; //new HorizontalShootingEnemy(30,14,3,terminal);
@@ -481,10 +481,17 @@ public class Tetroid {
           hduck1 = null;
           hduck3 = null;
           pistel = new Gun(45,16,terminal);
-          grappler = new GrappleGun(43,16,terminal);
+          //grappler = new GrappleGun(43,16,terminal);
           loaded = true;
           //vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
           //hduck2 = new HorizontalShootingEnemy(40,10,3,terminal);
+        }
+        if (currentRoom == Room2 && loaded == false){
+          vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
+          duckpoop = new Bullet(50,12,vduck1,terminal,0,"vertical");
+        }
+        if (currentRoom == Room6 && loaded == false){
+          grappler = new GrappleGun(43,16,terminal);
         }
         if (grappler != null){
           if (mainCharacter.touch(grappler.getX(),grappler.getY())){
@@ -510,7 +517,7 @@ public class Tetroid {
           }
         }
         if (duckpoop != null && duckpoop.getExists()){
-          if (waitd % 250 == 0){
+          if (wait % 250 == 0){
             if (duckpoop.getX() == mainCharacter.getX() && duckpoop.getY() == mainCharacter.getY()){
               mainCharacter.takeDamage(1);
             }
