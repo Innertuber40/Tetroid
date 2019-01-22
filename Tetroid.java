@@ -317,7 +317,7 @@ public class Tetroid {
       }
     }
     for (int i = 0; i < 16; i++) {
-      for (int j = 76; j < 80; j++) {
+      for (int j = 0; j < 4; j++) {
         room9[j][i] = new Pixel(j, i);
       }
     }
@@ -365,6 +365,9 @@ public class Tetroid {
     boolean loaded = false;
     boolean falling = false;
     boolean top = false;
+    boolean grapplerLoaded = false;
+    boolean pistelLoaded = false;
+    boolean orbLoaded = false;
     int waitd = 0;
     int lastEnteredX = 40;
     int lastEnteredY = 16;
@@ -635,7 +638,9 @@ public class Tetroid {
           hduck1 = null; //new HorizontalShootingEnemy(30,14,3,terminal);
           hduck2 = null;
           hduck3 = null;
-          orb = new CrouchOrb(43, 16, terminal);
+	  if(orbLoaded == false) {
+          	orb = new CrouchOrb(43, 16, terminal);
+	  }
           loaded = true;
 	}
         if (currentRoom == Room0 && loaded == false){
@@ -643,7 +648,6 @@ public class Tetroid {
           vduck3 = null;
           hduck1 = null;
           hduck3 = null;
-          pistel = new Gun(45,16,terminal);
           //grappler = new GrappleGun(43,16,terminal);
           loaded = true;
           //vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
@@ -658,14 +662,18 @@ public class Tetroid {
 		vduck3 = null;
 		duckpoop = null;
 	}
-        if (currentRoom == Room6 && loaded == false){
-          grappler = new GrappleGun(43,16,terminal);
+        if (currentRoom == Room6 && grapplerLoaded == false){
+          grappler = new GrappleGun(40,16,terminal);
         }
+	if (currentRoom == Room9 && pistelLoaded == false) {
+		pistel = new Gun(40,16,terminal);
+	}
         if (grappler != null){
           if (mainCharacter.touch(grappler.getX(),grappler.getY())){
             canGrapple = true;
             grappler.clear();
             grappler = null;
+	    grapplerLoaded = true;
           }
         }
 
@@ -674,6 +682,7 @@ public class Tetroid {
             canShoot = true;
             pistel.clear();
             pistel = null;
+	    pistelLoaded = true;
           }
         }
 
@@ -682,6 +691,7 @@ public class Tetroid {
             canCrouch = true;
             orb.clear();
             orb = null;
+	    orbLoaded = true;
           }
         }
         if (duckpoop != null && duckpoop.getExists()){
