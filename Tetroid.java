@@ -626,6 +626,8 @@ public class Tetroid {
 		currentRoom = Room5;
 		currentShoot = null;
     loaded = false;
+    hduck2 = new HorizontalShootingEnemy(50,6,3,terminal);
+    duckpoop2 = new Bullet(53,7,hduck2,terminal,0,"horizontal");
     		lastEnteredX = x;
 		lastEnteredY = y;
 		if (crouched) {
