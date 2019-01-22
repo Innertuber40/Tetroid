@@ -1,5 +1,6 @@
 # MKS21X-FinalProject
 Instructions:
+In this game, you move using the arrow keys accept you can't go up or down with the arrow keys. Instead, gravity will help you fall. The gun is an item with the appearance of a "~" and allows you to shoot using the z button. The grapple gun has an appearance of a "<" and allows you to shoot up to damage an enemy with the x button. The grapple gun also clings to the ceiling and drags the player up. Once grappled, gravity won't work anymore. Once you repress the x button, you'll fall back straight down. You could also used the arrow keys to move over a character horizontally once grappled in order to move over a character. Once moved, you'll fall again. Explore and have fun!
 
 Map: https://docs.google.com/drawings/d/18IcRpKoM4aBrPLCVbqySDgCrwhyq8Nm6cNnM3kSQbWQ/edit?usp=sharing
 
@@ -32,3 +33,5 @@ Change Log:
 1/19/19: Worked on grapple. Was able to get it to shoot up with button x but needs ceiling detection. Worked on HorizontalShootingEnemy but still needs edge detection like Vertical.
 
 1/20/19: Player now is able to die from enemy bullets and respawns at a set location. Spawn location will probably be fixed later. Grapple now does damage and insta-kills enemies as well as regular bullets. Grapple is able to pull the player up. Once grappled the player will fall if the player moves or press grapple again.
+
+1/21/19: Relocated the duck to a new room. Added all three items and placed them in different rooms.
