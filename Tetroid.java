@@ -252,7 +252,7 @@ public class Tetroid {
     entrances6.add(79);
     entrances6.add(16);
     Room Room6 = new Room(6, room6, entrances6);
-    
+
     Pixel[][] room7 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 80; j++) {
@@ -307,7 +307,7 @@ public class Tetroid {
     entrances8.add(66);
     entrances8.add(19);
     Room Room8 = new Room(8, room8, entrances8);
-    
+
     Pixel[][] room9 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
       for (int j = 0; j < 65; j++) {
@@ -369,6 +369,8 @@ public class Tetroid {
     GrappleGun grappler = null;
     boolean canGrapple = false;
 
+    Bullet duckpoop3 = null;
+    Bullet duckpoop2 = null;
     Bullet duckpoop = null;//new Bullet(50,12,duck1,terminal,0,"vertical");
     boolean loaded = false;
     boolean falling = false;
@@ -480,6 +482,7 @@ public class Tetroid {
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room2;
 		currentShoot = null;
+    duckpoop2 = null;
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -491,6 +494,7 @@ public class Tetroid {
 		currentRoom = Room4;
 		currentShoot = null;
     loaded = false;
+    duckpoop2 = null;
     		lastEnteredX = x;
 		lastEnteredY = y;
 		if (crouched) {
@@ -503,6 +507,7 @@ public class Tetroid {
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room3;
 		currentShoot = null;
+    duckpoop2 = null;
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
@@ -529,8 +534,11 @@ public class Tetroid {
 		currentRoom = Room5;
 		currentShoot = null;
     loaded = false;
+    duckpoop2 = null;
     		lastEnteredX = x;
 		lastEnteredY = y;
+    hduck2 = new HorizontalShootingEnemy(50,6,3,terminal);
+    duckpoop2 = new Bullet(53,7,hduck2,terminal,0,"horizontal");
 	  }
 	  if (currentRoom == Room5 && mainCharacter.getX() == (int)Room5.entrances().get(4) && mainCharacter.getY() == (int)Room3.entrances().get(5) + 1) {
 	        resetRoom(Room4, terminal, null);
@@ -538,6 +546,7 @@ public class Tetroid {
 		y = (int)Room4.entrances().get(5) - 5;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room4;
+    duckpoop2 = null;
 		currentShoot = null;
     loaded = false;
     		lastEnteredX = x;
@@ -570,6 +579,9 @@ public class Tetroid {
 		if (crouched) {
 			lastEnteredY = y - 2;
 		}
+    hduck1 = new HorizontalShootingEnemy(50,6,3,terminal);
+    duckpoop2 = new Bullet(47,6,hduck1,terminal,0,"horizontal");
+
 	  }
 	  if (currentRoom == Room6 && mainCharacter.getX() == (int)Room6.entrances().get(0) + 1) {
 	        resetRoom(Room5, terminal, null);
@@ -686,6 +698,7 @@ public class Tetroid {
           hduck1 = null; //new HorizontalShootingEnemy(30,14,3,terminal);
           hduck2 = null;
           hduck3 = null;
+          duckpoop2 = null;
 	  if(orbLoaded == false) {
           	orb = new CrouchOrb(43, 16, terminal);
 	  }
@@ -696,6 +709,7 @@ public class Tetroid {
           vduck3 = null;
           hduck1 = null;
           hduck3 = null;
+          duckpoop2 = null;
           //grappler = new GrappleGun(43,16,terminal);
           loaded = true;
           //vduck1 = new VerticalShootingEnemy(50,10,3,terminal);
@@ -710,6 +724,15 @@ public class Tetroid {
 		vduck3 = null;
 		duckpoop = null;
 	}
+  if (currentRoom != Room6){
+    //hduck1 = null;
+    duckpoop2 = null;
+  }
+
+  if (currentRoom != Room5){
+    duckpoop3 = null;
+  }
+
         if (currentRoom == Room6 && grapplerLoaded == false){
           grappler = new GrappleGun(40,16,terminal);
         }
@@ -750,6 +773,20 @@ public class Tetroid {
             duckpoop.move("down", terminal,false);
             if (currentRoom.isAPixel(duckpoop.getX(),duckpoop.getY()+1)){
               duckpoop.setY(12);
+            }
+            //x = mainCharacter.getX();
+          }
+	  waitd++;
+        }
+
+        if (duckpoop2 != null && duckpoop2.getExists()){
+	  if (waitd % 250 == 0){
+            if (duckpoop2.getX() == mainCharacter.getX() && duckpoop2.getY() == mainCharacter.getY()){
+              mainCharacter.takeDamage(1);
+            }
+            duckpoop2.move("left", terminal,false);
+            if (duckpoop2.getX() == 1){//(currentRoom.isAPixel(duckpoop.getX() - 1,duckpoop.getY())){
+              duckpoop2.setX(47);
             }
             //x = mainCharacter.getX();
           }
