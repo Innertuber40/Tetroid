@@ -169,6 +169,33 @@ public class Tetroid {
     entrances3.add(44);
     entrances3.add(0);
     Room Room3 = new Room(3, room3, entrances3);
+    
+    Pixel[][] room4 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 80; j++) {
+        room4[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 11; j++) {
+        room4[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 20; j < 80; j++) {
+        room4[j][i] = new Pixel(j, i);
+      }
+    }
+    ArrayList entrances4 = new ArrayList();
+    entrances4.add(0);
+    entrances4.add(16);
+    entrances4.add(79);
+    entrances4.add(16);
+    entrances4.add(11);
+    entrances4.add(19);
+    entrances4.add(20);
+    entrances4.add(19);
+    Room Room4 = new Room (4, room4, entrances4);
 
     resetRoom(Room0, terminal);
     currentRoom = Room0;
@@ -284,6 +311,30 @@ public class Tetroid {
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
+	  }
+	  if (currentRoom == Room3 && mainCharacter.getX() == (int)Room3.entrances.get(0) + 1) {
+	        resetRoom(Room4, terminal);
+		x = (int)Room4.entrances.get(2) - 1;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room4;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
+	  }
+	  if (currentRoom == Room4 && mainCharacter.getX() == (int)Room4.entrances.get(2)) {
+	        resetRoom(Room3, terminal);
+		x = (int)Room3.entrances.get(0) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room3;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
 	  }
         if (currentRoom == Room1 && loaded == false){
           vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
