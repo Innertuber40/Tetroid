@@ -105,8 +105,6 @@ public class Tetroid {
     entrances1.add(79);
     entrances1.add(16);
     Room Room1 = new Room(1, room1, entrances1);
-    resetRoom(Room0, terminal);
-    currentRoom = Room0;
 
     Pixel[][] room2 = new Pixel[80][20];
     for (int i = 0; i < 2; i++) {
@@ -223,6 +221,34 @@ public class Tetroid {
     entrances5.add(19);
     entrances5.add(0);
     Room Room5 = new Room(5, room5, entrances5);
+    
+    Pixel[][] room6 = new Pixel[80][20];
+    for (int i = 0; i < 2; i++) {
+      for (int j = 0; j < 80; j++) {
+        room6[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 0; i < 16; i++) {
+      for (int j = 76; j < 80; j++) {
+        room6[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 18; i < 20; i++) {
+      for (int j = 0; j < 80; j++) {
+        room6[j][i] = new Pixel(j, i);
+      }
+    }
+    for (int i = 10; i < 12; i++) {
+       for (int j = 20; j < 61; j++) {
+         room6[j][i] = new Pixel(j, i);
+       }
+    }
+    ArrayList entrances6 = new ArrayList();
+    entrances6.add(0);
+    entrances6.add(16);
+    entrances6.add(79);
+    entrances6.add(16);
+    Room Room6 = new Room(6, room6, entrances6);
 
     resetRoom(Room0, terminal);
     currentRoom = Room0;
@@ -402,6 +428,30 @@ public class Tetroid {
     loaded = false;
     		lastEnteredX = x;
 		lastEnteredY = y;
+	  }
+	  if (currentRoom == Room5 && mainCharacter.getX() == (int)Room5.entrances.get(2)) {
+	        resetRoom(Room6, terminal);
+		x = (int)Room6.entrances.get(0) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room6;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
+	  }
+	  if (currentRoom == Room6 && mainCharacter.getX() == (int)Room6.entrances.get(0) + 1) {
+	        resetRoom(Room5, terminal);
+		x = (int)Room5.entrances.get(2) - 1;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room5;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+		if (crouched) {
+			lastEnteredY = y - 2;
+		}
 	  }
         if (currentRoom == Room1 && loaded == false){
           vduck3 = new VerticalShootingEnemy(50,10,3,terminal);
