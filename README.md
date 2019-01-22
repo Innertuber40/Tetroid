@@ -1,6 +1,6 @@
 # MKS21X-FinalProject
 Instructions:
-In this game, you move using the arrow keys accept you can't go up or down with the arrow keys. Instead, gravity will help you fall. The gun is an item with the appearance of a "~" and allows you to shoot using the z button. The grapple gun has an appearance of a "<" and allows you to shoot up to damage an enemy with the x button. The grapple gun also clings to the ceiling and drags the player up. Once grappled, gravity won't work anymore. Once you repress the x button, you'll fall back straight down. You could also used the arrow keys to move over a character horizontally once grappled in order to move over a character. Once moved, you'll fall again. Explore and have fun!
+In this game, you move using the arrow keys accept you can't go up or down with the arrow keys. Instead, gravity will help you fall. The gun is an item with the appearance of a "~" and allows you to shoot using the z button. The grapple gun has an appearance of a "<" and allows you to shoot up to damage an enemy with the x button. The grapple gun also clings to the ceiling and drags the player up. Once grappled, gravity won't work anymore. Once you repress the x button, you'll fall back straight down. You could also used the arrow keys to move over a character horizontally once grappled in order to move over a character. Once moved, you'll fall again. Explore and have fun but be careful of the duck!
 
 Map: https://docs.google.com/drawings/d/18IcRpKoM4aBrPLCVbqySDgCrwhyq8Nm6cNnM3kSQbWQ/edit?usp=sharing
 
