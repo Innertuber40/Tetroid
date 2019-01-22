@@ -40,3 +40,5 @@ Change Log:
 1/20/19: Player now is able to die from enemy bullets and respawns at a set location. Spawn location will probably be fixed later. Grapple now does damage and insta-kills enemies as well as regular bullets. Grapple is able to pull the player up. Once grappled the player will fall if the player moves or press grapple again.
 
 1/21/19: Made a number of different rooms. Fixed all bugs. Fixed issues with grapple, crouch, and falling. Fixed spawn location. Relocated the duck to a new room. Added all three items and placed them in different rooms.
+
+1/22/19: Made the rest of the rooms, an ending, and ShootableBlocks; added in enemies in some other places
