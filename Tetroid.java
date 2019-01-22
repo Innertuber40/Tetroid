@@ -166,6 +166,8 @@ public class Tetroid {
     entrances3.add(16);
     entrances3.add(36);
     entrances3.add(0);
+    entrances3.add(44);
+    entrances3.add(0);
     Room Room3 = new Room(3, room3, entrances3);
 
     resetRoom(Room0, terminal);
@@ -253,10 +255,30 @@ public class Tetroid {
     		lastEnteredX = x;
 		lastEnteredY = y;
 	  }
+	  if (currentRoom == Room2 && mainCharacter.getX() == (int)Room2.entrances.get(6) && ((!crouched && mainCharacter.getY() == (int)Room2.entrances.get(7)-3) || (crouched && mainCharacter.getY() == (int) Room2.entrances.get(7) - 1))) {
+	        resetRoom(Room3, terminal);
+		x = (int)Room3.entrances.get(4);
+		y = (int)Room3.entrances.get(5) + 2;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room3;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+	  }
 	  if (currentRoom == Room3 && mainCharacter.getX() == (int)Room3.entrances.get(2) && mainCharacter.getY() == (int)Room3.entrances.get(3) + 1) {
 	        resetRoom(Room2, terminal);
 		x = (int)Room2.entrances.get(4) - 2;
 		y = (int)Room2.entrances.get(5) - 5;
+		mainCharacter.resetRoom(x, y);
+		currentRoom = Room2;
+    loaded = false;
+    		lastEnteredX = x;
+		lastEnteredY = y;
+	  }
+	  if (currentRoom == Room3 && mainCharacter.getX() == (int)Room3.entrances.get(4) && mainCharacter.getY() == (int)Room3.entrances.get(5) + 1) {
+	        resetRoom(Room2, terminal);
+		x = (int)Room2.entrances.get(6) + 2;
+		y = (int)Room2.entrances.get(7) - 5;
 		mainCharacter.resetRoom(x, y);
 		currentRoom = Room2;
     loaded = false;
